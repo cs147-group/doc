@@ -1,0 +1,42 @@
+/* Styling for Find Doc web application */
+
+body { 
+	background-color: #EDEDF3;
+	text-align: center; 
+	width: 100%;
+}
+
+h1 {
+	font-family: 'Montserrat Alternates', sans-serif;
+	font-size: 120px;
+	text-decoration: italic;
+}
+
+p { font-family: 'Raleway', sans-serif;
+	line-height: 2;
+	font-size: 55px;
+}
+
+#map {
+	height: 1000px; width: 750px;
+	margin: auto;
+}
+
+.docbox {
+	font-size: 30px;
+	background-color: rgba(0, 0, 0, 0.5);
+	color: white;
+	width: 300px;
+	border-bottom-left-radius: 20px;
+	border-bottom-right-radius: 20px;
+	position: absolute;
+	right: 65px;
+	top: -30px;
+	position: fixed;
+}
+
+.backButton {
+	width: 75px;
+	position: absolute;
+	top: 20px; left: 20px;
+}
