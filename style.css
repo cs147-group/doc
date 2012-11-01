@@ -1,66 +1,73 @@
-/* Styling for Find Doc web application */
+/* Stylesheet for Find Doc Application */
 
-body { 
-	background-color: #EDEDF3;
-	text-align: center; 
-	width: 100%;
-}
+body { background-color: #EDEDF3; }
 
-h1 {
+h1, h2, h3 { 
 	font-family: 'Montserrat Alternates', sans-serif;
-	font-size: 175px;
-	text-decoration: italic;
+	text-align: center; 
 }
 
-a { text-decoration: none; color: black; }
+h1 { font-size: 55px; padding-top: 0;}
 
-p { font-family: 'Raleway', sans-serif;
-	line-height: 2;
-	font-size: 55px;
-}
+h2 { font-size: 45px; }
 
-#search {
-	width: 700px;
-	height: 110px;
+h3 { font-size: 35px; }
+
+p { 
+	font-family: 'Raleway', sans-serif;
 	text-align: center;
-	font-family: 'Raleway', sans-serif;
-	font-size: 35px;
-}
-
-#insurance {
-	width: 500px;
-	height: 100px;
-	text-align: center;
-	font-family: 'Raleway', sans-serif;
-	font-size: 30px;
-}
-
-input::-webkit-input-placeholder {
-	position: relative;
-	right: 40px;
-}
-
-.docbox {
-	font-size: 30px;
-	background-color: rgba(0, 0, 0, 0.5);
-	color: white;
-	width: 300px;
-	border-bottom-left-radius: 20px;
-	border-bottom-right-radius: 20px;
-	position: absolute;
-	right: 65px;
-	top: -30px;
-	position: fixed;
-}
-
-#enterButton {
-	width: 75px;
-	position: absolute;
-	right: 175px; top: 470px;
-}
-
-footer {
-	font-family: 'Raleway', sans-serif;
 	font-size: 20px;
-	color: gray;
 }
+
+.profilePic {
+	width: 150px;
+	height: 250px;
+	position: absolute;
+	top: 10px;
+}
+
+.comment {
+	width: 90%;
+	background-color: white;
+	text-align: left;
+	border-radius: 20px;
+	box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+	margin: auto;
+	padding: 15px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.businessCard {
+	width: 90%;
+	background-color: white;
+	border-radius: 20px;
+	box-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
+	margin: auto;
+	padding-left: 15px;
+	padding-top: 50px;
+}
+
+.businessCard img {
+	width: 250px;
+	height: 300px;
+	position: relative;
+	left: 10px;
+}
+
+.businessCard h3 { 
+	font-size: 30px;
+	text-align: center;
+}
+
+.profileButtons {
+	position: relative;
+	left: 20%;
+}
+
+.rateButtons {
+	position: relative;
+	left: 15%;
+}
+
+.googleMaps { margin: auto; }
