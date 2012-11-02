@@ -62,6 +62,7 @@
 						$result = mysql_query($query);
 						if ($result && mysql_num_rows($result) != 0) {
 							while ($row = mysql_fetch_assoc($result)) {
+								include("include/phone.php");
 								echo "<li>";
 								echo "<a href = 'profile.php?id=".$row["id"]."' class = 'profile-link' data-transition='slide'>";
 								echo "<img src = '".$row["image"]."' class = 'profilePic'>";
