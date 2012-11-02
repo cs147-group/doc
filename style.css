@@ -2,7 +2,7 @@
 
 body { background-color: #EDEDF3; }
 
-h1, h2, h3 { 
+h1, h2 { 
 	font-family: 'Montserrat Alternates', sans-serif;
 	text-align: center; 
 }
@@ -11,53 +11,72 @@ h1 { font-size: 55px; padding-top: 0;}
 
 h2 { font-size: 45px; }
 
-h3 { font-size: 35px; }
+h3 { font-size: 35px;}
 
 p { 
 	font-family: 'Raleway', sans-serif;
-	text-align: center;
 	font-size: 20px;
 }
 
+#fav-link {
+	top: 70px;
+	right: -35px;
+	position: fixed;
+	background: rgba(0, 0, 0, 0.5);
+	color: white;
+	padding: 15px;
+	-webkit-border-radius: 10px;
+    -webkit-transform: rotate(-90deg);
+    z-index: 100;
+}
+
 .profilePic {
-	width: 150px;
+	/*width: 150px;
 	height: 250px;
-	position: absolute;
+	position: absolute;*/
+	max-width: 60px;
 	top: 10px;
 }
 
-.comment {
-	width: 90%;
-	background-color: white;
+.profile-link {
+	padding-left: 70px !important;
+}
+
+.ui-li-heading, .ui-li-desc {
+	margin: 0px;
+}
+
+li, li > div:first-child {
+	min-height: 100px;
+}
+
+#comments-title {
 	text-align: left;
-	border-radius: 20px;
-	box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
-	margin: auto;
-	padding: 15px;
-	margin-top: 10px;
-	margin-bottom: 10px;
+	font-size: 25px;
+	margin-top: 20px;
+	margin-bottom: -20px;
 }
 
-.businessCard {
-	width: 90%;
-	background-color: white;
-	border-radius: 20px;
-	box-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
-	margin: auto;
-	padding-left: 15px;
-	padding-top: 50px;
-}
-
-.businessCard img {
-	width: 250px;
-	height: 300px;
-	position: relative;
-	left: 10px;
-}
-
-.businessCard h3 { 
+.businessCard h3 {
 	font-size: 30px;
 	text-align: center;
+	margin: 0px;
+}
+
+.doctor-details {
+	min-height: 100px;
+}
+
+.doctor-details img {
+	float: left;
+	width: 80px;
+	height: 100px;
+	left: 10px;
+	margin-right: 10px;
+}
+
+.doctor-details p {
+	font-size: 15px;
 }
 
 .profileButtons {
@@ -65,9 +84,13 @@ p {
 	left: 20%;
 }
 
-.rateButtons {
-	position: relative;
-	left: 15%;
+#edit-buttons {
+	position: absolute;
+	left: 25%;
+	bottom: 5%;
 }
 
-.googleMaps { margin: auto; }
+#add-fav-title {
+	margin-top: 20%;
+	font-size: 30px;
+}
