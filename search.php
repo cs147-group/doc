@@ -58,7 +58,7 @@
 							echo "No results found.";
 						}
 					} else {
-						$query = "SELECT * FROM doctors WHERE name LIKE '%{$doctor}%' ORDER BY rating DESC LIMIT 0, 10";
+						$query = "SELECT * FROM doctors WHERE name LIKE '%{$doctor}%' ORDER BY name LIMIT 0, 10";
 						$result = mysql_query($query);
 						if ($result && mysql_num_rows($result) != 0) {
 							while ($row = mysql_fetch_assoc($result)) {
