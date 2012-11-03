@@ -19,7 +19,7 @@
 					echo "<input name = 'id' value = '".$_GET["id"]."' style = 'display: none'>";
 				?>
 				<label for = "rating"> Rating (1 = poor, 5 = outstanding): </label>
-				<input type = "range" name = "rating" min = "0" max = "5" data-highlight = "true" data-theme = "b" data-track-theme = "b">
+				<input type = "range" name = "rating" min = "0" max = "5" data-highlight = "true" data-theme = "b" data-track-theme = "b" required>
 
 				<label for = "comment"> Comments: </label>
 				<textarea name = "comment" id = "comment"> </textarea>
