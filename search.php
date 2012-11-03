@@ -14,22 +14,30 @@
 
 		<div data-role = "content">
 
-			<form action = "search.php" method = "get">
+			<form action = "search.php" method = "get" style = 'margin-bottom: 0'>
 				<?php
 					if (!isset($_GET["doctor"])) {
-						echo "<input type = 'search' name = 'symptoms' placeholder = 'Type in your symptoms here' required value = '".$_GET["symptoms"]."'>";
+						echo "<input type = 'search' name = 'symptoms' placeholder = 'Type in your symptoms here' data-mini = 'true' required value = '".$_GET["symptoms"]."'>";
+						?>
+						<fieldset data-role= "controlgroup" data-type = "horizontal" data-role = "fieldcontain" style = "float: right">
+							<legend> Sort by: </legend>
+							<input type = "radio" name = "sort" data-mini = "true" value = "rating" id = "rating" <?php if ($_GET["sort"] != "distance") echo "checked" ?>>
+							<label for = "rating"> Rating </label>
+							<input type = "radio" name = "sort" data-mini = "true" value = "distance" id = "distance" <?php if ($_GET["sort"] == "distance") echo "checked" ?>>
+							<label for = "distance"> Distance </label>
+						</fieldset>
+						<?php
 					} else {
-						echo "<input type = 'search' name = 'doctor' placeholder = 'Type in a doctor's name' required value = '".$_GET["doctor"]."'>";
+						echo "<input type = 'search' name = 'doctor' placeholder = 'Type in a doctor's name' data-mini = 'true' required value = '".$_GET["doctor"]."'>";
 					}
 				?>
-    			<input type = "submit" data-role="button" data-theme = "b" data-icon = "arrow-r" value = "Search">
     		</form>
 
-			<br><br>
+    		<br>
 
 			<?php include("include/fav-link.html"); ?>
 
-			<ul data-role = "listview" data-theme = "c">
+			<ul data-role = "listview" data-theme = "c" id = "ul-search">
 
 				<?php
 					include("include/config.php");
@@ -81,6 +89,12 @@
 			</ul>
 
 			<br><br>
+
+		<script>
+			$("#rating, #distance").change(function() {
+ 			   $(this).closest('form').submit();
+			});
+		</script>
 
 		</div>
 

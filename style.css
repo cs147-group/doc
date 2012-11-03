@@ -42,6 +42,14 @@ p {
 	padding-left: 70px !important;
 }
 
+#ul-search {
+	padding-top: 50px;
+}
+
+.ui-controlgroup-label {
+	display: inline;
+}
+
 .ui-li-heading, .ui-li-desc {
 	margin: 0px;
 }
