@@ -103,7 +103,6 @@
 			<br><br>
 
 			<script>
-				<?php include("include/getcoords.html") ?>
 				$("#rating, #distance").change(function() {
 	 				$(this).closest("form").submit();
 				});
