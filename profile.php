@@ -31,7 +31,7 @@
 						echo "Rating: ".round($row["rating"], 1)."<br>";
 						echo "Phone: <a href='tel:+1".$row["phone"]."'>".$phone."</a><br>";
 						echo "Hours: ".$row["hours"]."<br>";
-						echo "Distance: workin' on it<br>";
+						echo "Distance: <span class = 'distance'></span><br>";
 						echo "</p></div>\n";
 
 						echo "<span class = 'profileButtons'>";
@@ -53,6 +53,21 @@
 					}
 				?>
 			</div>
+
+			<script>
+				if (navigator.geolocation) {
+					navigator.geolocation.getCurrentPosition(function (position) {
+						$.post("getdistance.php", {
+							id: <?php echo $_GET["id"] ?>,
+							latitude: position.coords.latitude,
+							longitude: position.coords.longitude
+						}, function(data) {
+							$(".distance").html(data);
+						})
+					});
+				}
+			</script>
+
 		</div>
 		<br>
 	</div>

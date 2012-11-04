@@ -14,7 +14,7 @@
 		<div data-role = "content">
 			<?php include("include/fav-link.html"); ?>
 
-			<form id = "form" action = "submit-rating.php" method = "post" data-ajax="false">
+			<form id = "rate-form" action = "submit-rating.php" method = "post" data-ajax="false">
 				<?php
 					echo "<input name = 'id' value = '".$_GET["id"]."' style = 'display: none'>";
 				?>
@@ -32,9 +32,9 @@
 		</div>
 
 
-		<script type="text/javascript">
-			window.onload = $("#form").submit(function() {
-				$.post("submit-rating.php", $("#form").serialize(), function() {
+		<script>
+			$("#rate-form").submit(function() {
+				$.post("submit-rating.php", $("#rate-form").serialize(), function() {
 					<?php
 						echo "window.location.href = 'profile.php?id=".$_GET["id"]."';\n"; // Go back
 					?>

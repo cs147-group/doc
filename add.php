@@ -14,10 +14,21 @@
 		<div data-role = "content">
 			<?php include("include/fav-link.html"); ?>
 			<h1 id = "add-fav-title"> Add a favorite doctor: </h1>
-			<form action = "search.php" method = "get" data-transition = "slide">
+			<form action = "search.php" method = "get" data-transition = "slide" id = "add-form">
 				<input type = "search" name = "doctor" placeholder = "Type in a doctor's name" required>
 				<input type = "submit" data-role="button" data-theme = "b" data-icon = "arrow-r" data-transition = "slide" value = "Search">
+				<input class = "latitude" name = "latitude">
+    			<input class = "longitude" name = "longitude">
 			</form>
+
+			<script>
+				$(".latitude").val("");
+				$(".longitude").val("");
+				<?php
+					$id = "add-form";
+					include("include/getcoords.php")
+				?>
+			</script>
 		</div>
 
 	</div>

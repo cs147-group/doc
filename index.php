@@ -13,10 +13,12 @@
 
 			<h1> Find Doc </h1>
 
-			<form action = "search.php" method = "get" data-transition = "slide">
+			<form action = "search.php" method = "get" data-transition = "slide" id = "search-form">
 				<input type = "search" name = "symptoms" placeholder = "Type in your symptoms here" required>
-	    		<input type = "text" name = "insurance" placeholder = "(optional) Type your insurance here">
-    			<input type = "submit" data-role="button" data-theme = "b" data-icon = "arrow-r" data-transition = "slide" value = "Search">
+	    		<input name = "insurance" placeholder = "(optional) Type your insurance here">
+    			<input type = "submit" data-role = "button" data-theme = "b" data-icon = "arrow-r" data-transition = "slide" value = "Search">
+    			<input class = "latitude" name = "latitude">
+    			<input class = "longitude" name = "longitude">
     		</form>
 
 			<p style = "text-align: center">
@@ -24,6 +26,15 @@
 				<br>
 				Just type in your symptoms!
 			</p>
+
+			<script>
+				$(".latitude").val("");
+				$(".longitude").val("");
+				<?php
+					$id = "search-form";
+					include("include/getcoords.php")
+				?>
+			</script>
 
 		</div>
 

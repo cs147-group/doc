@@ -31,19 +31,12 @@ p {
 }
 
 .profilePic {
-	/*width: 150px;
-	height: 250px;
-	position: absolute;*/
 	max-width: 60px;
 	top: 10px;
 }
 
 .profile-link {
 	padding-left: 70px !important;
-}
-
-#ul-search {
-	padding-top: 50px;
 }
 
 .ui-controlgroup-label {
@@ -56,6 +49,16 @@ p {
 
 li, li > div:first-child {
 	min-height: 100px;
+}
+
+.ui-btn.ui-submit {
+	visibility: hidden;
+	margin-bottom: -40px;
+}
+
+.ui-btn.ui-submit.ui-btn-icon-left {
+	visibility: visible;
+	margin-bottom: 0;
 }
 
 #comments-title {
@@ -77,8 +80,8 @@ li, li > div:first-child {
 
 .doctor-details img {
 	float: left;
-	width: 80px;
-	height: 100px;
+	width: 60px;
+	max-height: 100px;
 	left: 10px;
 	margin-right: 10px;
 }
@@ -101,4 +104,8 @@ li, li > div:first-child {
 #add-fav-title {
 	margin-top: 20%;
 	font-size: 30px;
+}
+
+.latitude, .longitude {
+	display: none !important;
 }
