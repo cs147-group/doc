@@ -15,7 +15,7 @@
 
 			<form action = "search.php" method = "get" data-transition = "slide" id = "search-form">
 				<input type = "search" name = "symptoms" placeholder = "Symptoms, e.g. cough" required>
-	    		<input name = "insurance" placeholder = "(optional) Insurance">
+	    		<input name = "insurance" placeholder = "(optional) Your insurance">
     			<input type = "submit" data-role = "button" data-theme = "b" data-icon = "arrow-r" data-transition = "slide" value = "Search">
     			<input class = "latitude" name = "latitude">
     			<input class = "longitude" name = "longitude">
