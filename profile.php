@@ -68,15 +68,21 @@
 							longitude: position.coords.longitude
 						});
 					}, function () {
-						getDistance({
-							id: <?php echo $_GET["id"] ?>,
-							<?php
-								$url = "http://api.ipinfodb.com/v3/ip-city/?key=16ceb4e81c46df1a31558904f1da1f79e2edabc509f4ec44bdc8c169fb71a193&format=xml&ip=".$_SERVER["REMOTE_ADDR"];
-								$xml = simplexml_load_file($url);
-								echo "latitude: ".$xml->latitude.",";
-								echo "longitude: ".$xml->longitude;
-							?>
-						});
+						<?php
+							if ($_SERVER['SERVER_NAME'] != "localhost") {
+						?>
+								getDistance({
+									id: <?php echo $_GET["id"] ?>,
+									<?php
+										$url = "http://api.ipinfodb.com/v3/ip-city/?key=16ceb4e81c46df1a31558904f1da1f79e2edabc509f4ec44bdc8c169fb71a193&format=xml&ip=".$_SERVER["REMOTE_ADDR"];
+										$xml = simplexml_load_file($url);
+										echo "latitude: ".$xml->latitude.",";
+										echo "longitude: ".$xml->longitude;
+									?>
+								});
+						<?php
+							}
+						?>
 					});
 				}
 			</script>
