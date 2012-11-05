@@ -109,3 +109,29 @@ li, li > div:first-child {
 .latitude, .longitude {
 	display: none !important;
 }
+
+@-webkit-keyframes fadeOut {
+	from { opacity: 1; }
+	to { opacity: 0; }
+}
+
+.wrapper {
+	top: 5px;
+	left: 0px;
+	position: absolute;
+	z-index: 1000;
+	text-align: center;
+	width: 100%;
+}
+
+.hide {
+	border-radius: 10px;
+	padding: 10px;
+	background: rgba(221, 221, 14, 0.9);
+	display: inline-block;
+ 
+	-webkit-animation: fadeOut ease-in 1;
+	-webkit-animation-fill-mode: forwards;
+	-webkit-animation-duration: 2s;
+	-webkit-animation-delay: 3s;
+}

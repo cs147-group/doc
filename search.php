@@ -40,7 +40,7 @@
 
 			<?php include("include/fav-link.html"); ?>
 
-			<ul data-role = "listview" data-theme = "c" <?php if (!isset($_GET["doctor"])) echo "style = 'padding-top: 50px'" ?>>
+			
 				<?php
 					include("include/config.php");
 					$doctor = $_GET["doctor"];
@@ -59,7 +59,20 @@
 							$query = "SELECT *, ( 3959 * acos( cos( radians(".$_GET["latitude"].") ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(".$_GET["longitude"].") ) + sin( radians(".$_GET["latitude"].") ) * sin( radians( latitude ) ) ) ) AS distance ".  // From https://developers.google.com/maps/articles/phpsqlsearch_v3
 							"FROM doctors WHERE specialties = '".$row["specialty"]."' AND insurance LIKE '%{$insurance}%' HAVING distance < 30 ORDER BY ".$order." LIMIT 0, 10";
 							$result = mysql_query($query);
+							if (mysql_num_rows($result) == 0) { // Try and find doctors within 100 miles
+								$query = "SELECT *, ( 3959 * acos( cos( radians(".$_GET["latitude"].") ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(".$_GET["longitude"].") ) + sin( radians(".$_GET["latitude"].") ) * sin( radians( latitude ) ) ) ) AS distance ".  // From https://developers.google.com/maps/articles/phpsqlsearch_v3
+								"FROM doctors WHERE specialties = '".$row["specialty"]."' AND insurance LIKE '%{$insurance}%' HAVING distance < 100 ORDER BY ".$order." LIMIT 0, 10";
+								$result = mysql_query($query);
+								if (mysql_num_rows($result) == 0) {
+									echo "No results found.";
+								} else {
+									echo "<div class = 'wrapper'><div class = 'hide'>Your search distance has been expanded</div></div>";
+								}
+							}
 							if (mysql_num_rows($result) != 0) {
+								?>
+								<ul data-role = "listview" data-theme = "c" <?php if (!isset($_GET["doctor"])) echo "style = 'padding-top: 50px'" ?>>
+								<?php
 								while ($row = mysql_fetch_assoc($result)) {
 									include("include/phone.php");
 									echo "<li>";
@@ -71,8 +84,6 @@
 									echo "Hours: ".$row["hours"]."<br>";
 									echo "</p></a></li>\n";
 								}
-							} else {
-								echo "No results found.";
 							}
 						} else {
 							echo "No results found.";
@@ -81,7 +92,20 @@
 						$query = "SELECT *, ( 3959 * acos( cos( radians(".$_GET["latitude"].") ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(".$_GET["longitude"].") ) + sin( radians(".$_GET["latitude"].") ) * sin( radians( latitude ) ) ) ) AS distance ".  // From https://developers.google.com/maps/articles/phpsqlsearch_v3
 						"FROM doctors WHERE name LIKE '%{$doctor}%' HAVING distance < 30 ORDER BY name LIMIT 0, 10";
 						$result = mysql_query($query);
-						if ($result && mysql_num_rows($result) != 0) {
+						if (mysql_num_rows($result) == 0) { // Try and find doctors, regardless of distance
+							$query = "SELECT *, ( 3959 * acos( cos( radians(".$_GET["latitude"].") ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(".$_GET["longitude"].") ) + sin( radians(".$_GET["latitude"].") ) * sin( radians( latitude ) ) ) ) AS distance ".  // From https://developers.google.com/maps/articles/phpsqlsearch_v3
+							"FROM doctors WHERE name LIKE '%{$doctor}%' ORDER BY name LIMIT 0, 10";
+							$result = mysql_query($query);
+							if (mysql_num_rows($result) == 0) {
+								echo "No results found.";
+							} else {
+								echo "<div class = 'wrapper'><div class = 'hide'>We couldn't find a doctor within 30 mi</div></div>";
+							}
+						}
+						if (mysql_num_rows($result) != 0) {
+							?>
+							<ul data-role = "listview" data-theme = "c" <?php if (!isset($_GET["doctor"])) echo "style = 'padding-top: 50px'" ?>>
+							<?php
 							while ($row = mysql_fetch_assoc($result)) {
 								include("include/phone.php");
 								echo "<li>";
@@ -93,8 +117,6 @@
 								echo "Hours: ".$row["hours"]."<br>";
 								echo "</p></a></li>\n";
 							}
-						} else {
-							echo "No results found.";
 						}
 					}
 				?>
