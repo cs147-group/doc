@@ -37,7 +37,7 @@
 						echo "<span class = 'profileButtons'>";
 						echo "<a href = 'http://maps.google.com/?q=".$row["latitude"].",".$row["longitude"]."' data-role = 'button' data-theme = 'b' data-type = 'horizontal' data-inline = 'true'> Map </a>";
 						
-						<a href="#popupBasic" data-transition="flip" data-rel="popup">Map</a>
+						echo <a href="#popupBasic" data-transition="flip" data-rel="popup">Map</a>
 							<iframe src="http://maps.google.com/?q=".$row["latitude"].",".$row["longitude"]" width="497" height="298" seamless></iframe>
 						<div data-role="popup" id="popupBasic">
 						</div>
