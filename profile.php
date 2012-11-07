@@ -2,6 +2,10 @@
 
 <?php include("include/head.html") ?>
 
+<head>
+<script type="text/javascript" src="lightbox.js"></script>
+</head>
+
 <body>
 
 	<div data-role = "page" id = "profile">
@@ -35,15 +39,10 @@
 						echo "<span class = 'rating rating-profile'>".$row["rating"]."</span>";
 
 						echo "<span class = 'profileButtons'>";
-						echo "<a href = 'http://maps.google.com/?q=".$row["latitude"].",".$row["longitude"]."' data-role = 'button' data-theme = 'b' data-type = 'horizontal' data-inline = 'true'> Map </a>";
+						echo "<a href = 'http://maps.google.com/?q=".$row["latitude"].",".$row["longitude"]."' rel='lightbox' data-role = 'button' data-theme = 'b' data-type = 'horizontal' data-inline = 'true'> Map </a>";
 						
-						echo <a href="#popupBasic" data-transition="flip" data-rel="popup">Map</a>
-							<iframe src="http://maps.google.com/?q=".$row["latitude"].",".$row["longitude"]" width="497" height="298" seamless></iframe>
-						<div data-role="popup" id="popupBasic">
-						</div>
+						echo "<div id='map' style= 'position:absolute; visibility:hidden'></div>";
 
-						
-						
 						
 						
 						echo "<a href = 'rate.php?id=".$row["id"]."' data-role = 'button' data-theme = 'b' data-transition = 'slide' data-type = 'horizontal' data-inline = 'true'> Rate </a>";
@@ -66,6 +65,12 @@
 
 			<script>
 				<?php include("include/stars.html") ?>
+
+
+
+
+
+
 
 				function getDistance(data) {
 					$.post("getdistance.php", data, function(data) {
