@@ -2,10 +2,6 @@
 
 <?php include("include/head.html") ?>
 
-<head>
-<script type="text/javascript" src="lightbox.js"></script>
-</head>
-
 <body>
 
 	<div data-role = "page" id = "profile">
@@ -39,9 +35,13 @@
 						echo "<span class = 'rating rating-profile'>".$row["rating"]."</span>";
 
 						echo "<span class = 'profileButtons'>";
-						echo "<a href = 'http://maps.google.com/?q=".$row["latitude"].",".$row["longitude"]."' rel='lightbox' data-role = 'button' data-theme = 'b' data-type = 'horizontal' data-inline = 'true'> Map </a>";
+						echo "<a href='#popupBasic' data-rel="popup">Map</a>;
 						
-						echo "<div id='map' style= 'position:absolute; visibility:hidden'></div>";
+						<div data-role="popup" id="popupBasic">
+			<p>This is a completely basic popup, no options set.<p>
+								</div>
+						echo "<a href = 'http://maps.google.com/?q=".$row["latitude"].",".$row["longitude"]."' rel='lightbox' data-role = 'button' data-theme = 'b' data-type = 'horizontal' data-inline = 'true'> Map </a>";
+
 
 						
 						
