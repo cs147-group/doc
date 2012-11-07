@@ -40,7 +40,7 @@
 						<div data-role="popup" id="popupBasic">
 			<p>This is a completely basic popup, no options set.<p>
 								</div>
-						//echo "<a href = 'http://maps.google.com/?q=".$row["latitude"].",".$row["longitude"]."' rel='lightbox' data-role = 'button' data-theme = 'b' data-type = 'horizontal' data-inline = 'true'> Map </a>";
+						
 
 
 						
