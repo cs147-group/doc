@@ -19,7 +19,7 @@
     			<input type = "submit" data-role = "button" data-theme = "b" data-icon = "arrow-r" data-transition = "slide" value = "Search">
     			<input class = "latitude" name = "latitude">
     			<input class = "longitude" name = "longitude">
-    		</form>
+    		</form> 
 
 			<p style = "text-align: center">
 				Find a doctor, fast.
