@@ -28,11 +28,11 @@
 						echo "<div class = 'doctor-details'>";
 						echo "<img src = '".$row["image"]."'>";
 						echo "<p> Specialty: ".$row["specialties"]."<br>";
-						echo "Rating: ".round($row["rating"], 1)."<br>";
 						echo "Phone: <a href='tel:+1".$row["phone"]."'>".$phone."</a><br>";
 						echo "Hours: ".$row["hours"]."<br>";
 						echo "Distance: <span class = 'distance'></span><br>";
 						echo "</p></div>\n";
+						echo "<span class = 'rating rating-profile'>".$row["rating"]."</span>";
 
 						echo "<span class = 'profileButtons'>";
 						echo "<a href = 'http://maps.google.com/?q=".$row["latitude"].",".$row["longitude"]."' data-role = 'button' data-theme = 'b' data-type = 'horizontal' data-inline = 'true'> Map </a>";
@@ -55,6 +55,8 @@
 			</div>
 
 			<script>
+				<?php include("include/stars.html") ?>
+
 				function getDistance(data) {
 					$.post("getdistance.php", data, function(data) {
 						$(".distance").html(data);
