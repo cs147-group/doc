@@ -78,9 +78,9 @@
 									echo "<li>";
 									echo "<a href = 'profile.php?id=".$row["id"]."' class = 'profile-link' data-transition='slide'>";
 									echo "<img src = '".$row["image"]."' class = 'profilePic'>";
+									echo "<span class = 'rating'>".$row["rating"]."</span>";
 									echo "<h3> ".$row["name"]." </h3>";
-									echo "<p> Rating: ".round($row["rating"], 1)."<br>";
-									echo "Phone: ".$phone."<br>";
+									echo "<p>Phone: ".$phone."<br>";
 									echo "Hours: ".$row["hours"]."<br>";
 									echo "</p></a></li>\n";
 								}
@@ -128,6 +128,8 @@
 				$("#rating, #distance").change(function() {
 	 				$(this).closest("form").submit();
 				});
+
+				<?php include("include/stars.html") ?>
 			</script>
 
 		</div>

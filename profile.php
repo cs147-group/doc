@@ -28,11 +28,11 @@
 						echo "<div class = 'doctor-details'>";
 						echo "<img src = '".$row["image"]."'>";
 						echo "<p> Specialty: ".$row["specialties"]."<br>";
-						echo "Rating: ".round($row["rating"], 1)."<br>";
 						echo "Phone: <a href='tel:+1".$row["phone"]."'>".$phone."</a><br>";
 						echo "Hours: ".$row["hours"]."<br>";
 						echo "Distance: <span class = 'distance'></span><br>";
 						echo "</p></div>\n";
+						echo "<span class = 'rating rating-profile'>".$row["rating"]."</span>";
 
 						echo "<span class = 'profileButtons'>";
 						echo "<a href = 'http://maps.google.com/?q=".$row["latitude"].",".$row["longitude"]."' data-role = 'button' data-theme = 'b' data-type = 'horizontal' data-inline = 'true'> Map </a>";
@@ -65,15 +65,36 @@
 			</div>
 
 			<script>
+				<?php include("include/stars.html") ?>
+
+				function getDistance(data) {
+					$.post("getdistance.php", data, function(data) {
+						$(".distance").html(data);
+					});
+				}
 				if (navigator.geolocation) {
 					navigator.geolocation.getCurrentPosition(function (position) {
-						$.post("getdistance.php", {
+						getDistance({
 							id: <?php echo $_GET["id"] ?>,
 							latitude: position.coords.latitude,
 							longitude: position.coords.longitude
-						}, function(data) {
-							$(".distance").html(data);
-						})
+						});
+					}, function () {
+						<?php
+							if ($_SERVER['SERVER_NAME'] != "localhost") {
+						?>
+								getDistance({
+									id: <?php echo $_GET["id"] ?>,
+									<?php
+										$url = "http://api.ipinfodb.com/v3/ip-city/?key=16ceb4e81c46df1a31558904f1da1f79e2edabc509f4ec44bdc8c169fb71a193&format=xml&ip=".$_SERVER["REMOTE_ADDR"];
+										$xml = simplexml_load_file($url);
+										echo "latitude: ".$xml->latitude.",";
+										echo "longitude: ".$xml->longitude;
+									?>
+								});
+						<?php
+							}
+						?>
 					});
 				}
 			</script>
