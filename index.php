@@ -1,3 +1,17 @@
+<?php
+	/*
+	 *  Redirect to index.php if the client opened root, since otherwise jQuery
+	 *  mobile's AJAX page loading can cause all sorts of fun little bugs.
+	 */
+	$path = parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH);
+	$pathFragments = explode('/', $path);
+	$end = end($pathFragments);
+	if ($end != "index.php") {
+		header("Location: index.php");
+		exit;
+	}
+?>
+
 <!DOCTYPE html>
 
 <html>
