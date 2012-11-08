@@ -12,6 +12,12 @@
 			<a href = "index.php" data-role = "button" data-icon = "home" data-transition = "slide" data-theme = "a" data-direction="reverse"> Home </a>
 		</div>
 		<div data-role = "content">
+
+			<form style = "display: none">
+				<input class = "latitude" name = "latitude">
+				<input class = "longitude" name = "longitude">
+			</form>
+
 			<?php include("include/fav-link.html"); ?>
 
 			<div class = "businessCard">
@@ -58,52 +64,49 @@
 				
 			</div>
 		<div data-role="popup" id="popupMap" data-overlay-theme="a" data-corners="false">
-					<?php
-					include("include/config.php");
-					$id = $_GET["id"];
-					$query = "SELECT * FROM doctors WHERE id = '".$id."'";
-					$result = mysql_query($query);
-					$row = mysql_fetch_assoc($result);
-					echo $row["latitude"];
-					?>
-			<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-popup-btn-close">Close</a><img src="https://maps.googleapis.com/maps/api/staticmap?center='.$row["latitude"].'+'.$row["longitude"].'&zoom=13&size=400x400&sensor=false"  alt="Map">
+			<a data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-popup-btn-close">Close</a><img id = "mapImage" alt="Map">
 		</div>
 			<script>
 				<?php include("include/stars.html") ?>
-
-https://maps.googleapis.com/maps/api/staticmap?center=41+72&zoom=13&size=400x400&sensor=false
-
-
-
 
 				function getDistance(data) {
 					$.post("getdistance.php", data, function(data) {
 						$(".distance").html(data);
 					});
 				}
+
+				function setImage() {
+					$("#mapImage").attr("src", function() {
+						return "https://maps.googleapis.com/maps/api/staticmap?center=" + $(".latitude").val() + "+" + $(".longitude").val() +
+							"&zoom=13&size=400x400&sensor=false";
+					});
+				}
+
 				if (navigator.geolocation) {
 					navigator.geolocation.getCurrentPosition(function (position) {
+						$(".latitude").val(position.coords.latitude);
+						$(".longitude").val(position.coords.longitude);
 						getDistance({
 							id: <?php echo $_GET["id"] ?>,
 							latitude: position.coords.latitude,
 							longitude: position.coords.longitude
 						});
+						setImage();
 					}, function () {
 						<?php
 							if ($_SERVER['SERVER_NAME'] != "localhost") {
-						?>
-								getDistance({
-									id: <?php echo $_GET["id"] ?>,
-									<?php
-										$url = "http://api.ipinfodb.com/v3/ip-city/?key=16ceb4e81c46df1a31558904f1da1f79e2edabc509f4ec44bdc8c169fb71a193&format=xml&ip=".$_SERVER["REMOTE_ADDR"];
-										$xml = simplexml_load_file($url);
-										echo "latitude: ".$xml->latitude.",";
-										echo "longitude: ".$xml->longitude;
-									?>
-								});
-						<?php
+								$url = "http://api.ipinfodb.com/v3/ip-city/?key=16ceb4e81c46df1a31558904f1da1f79e2edabc509f4ec44bdc8c169fb71a193&format=xml&ip=".$_SERVER["REMOTE_ADDR"];
+								$xml = simplexml_load_file($url);
+								echo "$('.latitude').val(".$xml->latitude.");";
+								echo "$('.longitude').val".$xml->longitude.");";
+								echo "getDistance({";
+									echo "id: ".$_GET["id"].",";
+									echo "latitude: ".$xml->latitude.",";
+									echo "longitude: ".$xml->longitude;
+								echo "});";
 							}
 						?>
+						setImage();
 					});
 				}
 			</script>
