@@ -68,7 +68,8 @@ li, li > div:first-child {
 }
 
 .results-search-button {
-	display: none;
+	visibility: hidden;
+	margin-top: -40px;
 }
 
 #comments-title {

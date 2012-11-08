@@ -146,7 +146,7 @@
 								$url = "http://api.ipinfodb.com/v3/ip-city/?key=16ceb4e81c46df1a31558904f1da1f79e2edabc509f4ec44bdc8c169fb71a193&format=xml&ip=".$_SERVER["REMOTE_ADDR"];
 								$xml = simplexml_load_file($url);
 								echo "$('.latitude').val(".$xml->latitude.");";
-								echo "$('.longitude').val".$xml->longitude.");";
+								echo "$('.longitude').val(".$xml->longitude.");";
 								echo "getDistance({";
 									echo "id: ".$_GET["id"].",";
 									echo "latitude: ".$xml->latitude.",";
