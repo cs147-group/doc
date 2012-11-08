@@ -51,10 +51,10 @@
 
 			<script>
 				// Load more results if we are at the bottom
-				function loadMoreResults() {
+				function loadMoreResults(page) {
 					$(window).unbind('scroll');
 					$("#search").append("<div class = 'loading'>Loading</div>");
-					page = Math.ceil($("li").length / 10);
+					if (page == -1) page = Math.ceil($("li").length / 10);
 					$.get('loadMoreResults.php?param=<?php echo serialize($_GET); ?>&page=' + page, function(data) {
 					 	if (data != "No results found.") {
 							$("ul").append(data);
@@ -72,12 +72,11 @@
 
 				function loadMoreResultsIfAtBottom() {
 					if ($(window).scrollTop() + $(window).height() >= $(document).height()) {
-						loadMoreResults();
+						loadMoreResults(-1);
 					}
 				}
 
-				loadMoreResults(); // Calling the function also sets up the binding to loadMoreIfAtBottom
-
+				loadMoreResults(0); // Calling the function also sets up the binding to loadMoreIfAtBottom
 
 				$(document).ready(function() {
 					$('.insuranceSearch').hide();
