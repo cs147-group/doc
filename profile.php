@@ -11,7 +11,6 @@
 			<a data-rel = "back" data-role = "button" data-icon = "arrow-l" data-transition = "slide" data-theme = "a">Back </a>
 			<a href = "index.php" data-role = "button" data-icon = "home" data-transition = "slide" data-theme = "a" data-direction="reverse"> Home </a>
 		</div>
-
 		<div data-role = "content">
 			<?php include("include/fav-link.html"); ?>
 
@@ -35,14 +34,7 @@
 						echo "<span class = 'rating rating-profile'>".$row["rating"]."</span>";
 
 						echo "<span class = 'profileButtons'>";
-						echo "<a href='#popupBasic' data-rel="popup">Map</a>;
-						
-						<div data-role="popup" id="popupBasic">
-			<p>This is a completely basic popup, no options set.<p>
-								</div>
-						
-
-
+						echo "<a href= '#popupMap' data-rel='popup' data-role='button' data-inline='true'>Map</a>";
 						
 						
 						echo "<a href = 'rate.php?id=".$row["id"]."' data-role = 'button' data-theme = 'b' data-transition = 'slide' data-type = 'horizontal' data-inline = 'true'> Rate </a>";
@@ -61,13 +53,25 @@
 						echo "Not found.";
 					}
 				?>
+				
+				
+				
 			</div>
-
+		<div data-role="popup" id="popupMap" data-overlay-theme="a" data-corners="false">
+					<?php
+					include("include/config.php");
+					$id = $_GET["id"];
+					$query = "SELECT * FROM doctors WHERE id = '".$id."'";
+					$result = mysql_query($query);
+					$row = mysql_fetch_assoc($result);
+					echo $row["latitude"];
+					?>
+			<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-popup-btn-close">Close</a><img src="https://maps.googleapis.com/maps/api/staticmap?center='.$row["latitude"].'+'.$row["longitude"].'&zoom=13&size=400x400&sensor=false"  alt="Map">
+		</div>
 			<script>
 				<?php include("include/stars.html") ?>
 
-
-
+https://maps.googleapis.com/maps/api/staticmap?center=41+72&zoom=13&size=400x400&sensor=false
 
 
 
