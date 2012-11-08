@@ -51,7 +51,7 @@ li, li > div:first-child {
 	min-height: 100px;
 }
 
-.rating, .rating span {
+.rating, .rated, .rated span {
 	display: block;
 	background: url(stars.png) 0 -16px repeat-x;
 	width: 80px;
@@ -59,7 +59,7 @@ li, li > div:first-child {
     margin-bottom: 2px;
 }
 
-.rating span {
+.rated span {
 	background-position: 0 0;
 }
 

@@ -10,6 +10,8 @@ $.fn.stars = function() {
 		var $span = $('<span />').width(size);
 		// Replace the numerical value with stars
 		$(this).html($span);
+		$(this).removeClass('rating');
+		$(this).addClass('rated');
 	});
 }
 $(function() {
