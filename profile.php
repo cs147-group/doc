@@ -57,6 +57,10 @@
 				
 			</div>
 
+        	<div data-role="popup" id="popupMap" data-overlay-theme="a" data-corners="false">
+        		<a data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-popup-btn-close">Close</a><img id = "mapImage" alt="Map">
+        	</div>
+
 			<div data-role = "popup" data-overlay-theme = "a" id = "ratePopup">
 
 				<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
