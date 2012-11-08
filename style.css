@@ -81,7 +81,10 @@ li, li > div:first-child {
 	text-align: left;
 	font-size: 25px;
 	margin-top: 20px;
-	margin-bottom: -20px;
+}
+
+.comment {
+	font-family: 'Raleway', sans-serif;
 }
 
 .businessCard h3 {
@@ -105,6 +108,8 @@ li, li > div:first-child {
 .doctor-details p {
 	font-size: 15px;
 }
+
+.comm
 
 .profileButtons {
 	position: relative;
@@ -150,4 +155,12 @@ li, li > div:first-child {
 	-webkit-animation-fill-mode: forwards;
 	-webkit-animation-duration: 2s;
 	-webkit-animation-delay: 3s;
+}
+
+.loading {
+	width: 100%;
+	background: rgba(221, 221, 14, 0.9);
+	text-align: center;
+	padding: 15px;
+	z-index: 100;
 }

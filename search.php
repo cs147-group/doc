@@ -40,73 +40,42 @@
 
 			<?php include("include/fav-link.html"); ?>
 
-			
-				<?php
-					include("include/config.php");
-					$doctor = $_GET["doctor"];
-					if (!isset($doctor)) { // doctor is empty, so they probably searched for symptoms
-						$symptoms = $_GET["symptoms"];
-						$query = "SELECT * FROM symptoms WHERE symptoms = '".$symptoms."'";
-						$result = mysql_query($query);
-						if (mysql_num_rows($result) != 0) {
-							$row = mysql_fetch_assoc($result);
-							$insurance = $_GET["insurance"];
-							if ($_GET["sort"] == "distance") {
-								$order = "distance";
-							} else {
-								$order = "rating DESC";
-							}
-							$query = "SELECT *, ( 3959 * acos( cos( radians(".$_GET["latitude"].") ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(".$_GET["longitude"].") ) + sin( radians(".$_GET["latitude"].") ) * sin( radians( latitude ) ) ) ) AS distance ".  // From https://developers.google.com/maps/articles/phpsqlsearch_v3
-							"FROM doctors WHERE specialties = '".$row["specialty"]."' AND insurance LIKE '%{$insurance}%' HAVING distance < 30 ORDER BY ".$order." LIMIT 0, 10";
-							$result = mysql_query($query);
-							if (mysql_num_rows($result) == 0) { // Try and find doctors within 100 miles
-								$query = "SELECT *, ( 3959 * acos( cos( radians(".$_GET["latitude"].") ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(".$_GET["longitude"].") ) + sin( radians(".$_GET["latitude"].") ) * sin( radians( latitude ) ) ) ) AS distance ".  // From https://developers.google.com/maps/articles/phpsqlsearch_v3
-								"FROM doctors WHERE specialties = '".$row["specialty"]."' AND insurance LIKE '%{$insurance}%' HAVING distance < 100 ORDER BY ".$order." LIMIT 0, 10";
-								$result = mysql_query($query);
-								if (mysql_num_rows($result) != 0) {
-									echo "<div class = 'wrapper'><div class = 'hide'>Your search distance has been expanded</div></div>";
-								}
-							}
-						}
-					} else {
-						$query = "SELECT *, ( 3959 * acos( cos( radians(".$_GET["latitude"].") ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(".$_GET["longitude"].") ) + sin( radians(".$_GET["latitude"].") ) * sin( radians( latitude ) ) ) ) AS distance ".  // From https://developers.google.com/maps/articles/phpsqlsearch_v3
-						"FROM doctors WHERE name LIKE '%{$doctor}%' HAVING distance < 30 ORDER BY name LIMIT 0, 10";
-						$result = mysql_query($query);
-						if (mysql_num_rows($result) == 0) { // Try and find doctors, regardless of distance
-							$query = "SELECT *, ( 3959 * acos( cos( radians(".$_GET["latitude"].") ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(".$_GET["longitude"].") ) + sin( radians(".$_GET["latitude"].") ) * sin( radians( latitude ) ) ) ) AS distance ".  // From https://developers.google.com/maps/articles/phpsqlsearch_v3
-							"FROM doctors WHERE name LIKE '%{$doctor}%' ORDER BY name LIMIT 0, 10";
-							$result = mysql_query($query);
-							if (mysql_num_rows($result) != 0) {
-								echo "<div class = 'wrapper'><div class = 'hide'>We couldn't find a doctor within 30 mi</div></div>";
-							}
-						}
-					}
-					if (mysql_num_rows($result) != 0) {
-						?>
-						<ul data-role = "listview" data-theme = "c" <?php if (!isset($_GET["doctor"])) echo "style = 'padding-top: 50px'" ?>>
-						<?php
-						while ($row = mysql_fetch_assoc($result)) {
-							include("include/phone.php");
-							echo "<li>";
-							echo "<a href = 'profile.php?id=".$row["id"]."' class = 'profile-link' data-transition='slide'>";
-							echo "<img src = '".$row["image"]."' class = 'profilePic'>";
-							echo "<span class = 'rating'>".$row["rating"]."</span>";
-							echo "<h3> ".$row["name"]." </h3>";
-							echo "<p>Phone: ".$phone."<br>";
-							echo "Hours: ".$row["hours"]."<br>";
-							echo "</p></a></li>\n";
-						}
-					} else {
-						echo "No results found.";
-					}
-				?>
+			<ul data-role = "listview" data-theme = "c" <?php if (!isset($_GET["doctor"])) echo "style = 'padding-top: 50px'" ?>>
 			</ul>
 
 			<br><br>
 
 			<script>
+				// Load more results if we are at the bottom
+				function loadMoreResults() {
+					$(window).unbind('scroll');
+					$("#search").append("<div class = 'loading'>Loading</div>");
+					page = Math.ceil($("li").length / 10);
+					$.get('loadMoreResults.php?param=<?php echo serialize($_GET); ?>&page=' + page, function(data) {
+					 	if (data != "No results found.") {
+							$("ul").append(data);
+							$("ul").listview("refresh");
+							$(".rating").stars();
+							$(window).scroll(loadMoreResultsIfAtBottom);
+						} else {
+							if ($("ul li").length == 0) {
+								$("ul").append("No results found.");
+							}
+						}
+						$(".loading").remove();
+					});
+				}
+
+				function loadMoreResultsIfAtBottom() {
+					if ($(window).scrollTop() + $(window).height() >= $(document).height()) {
+						loadMoreResults();
+					}
+				}
+
+				loadMoreResults(); // Calling the function also sets up the binding to loadMoreIfAtBottom
+
 				$("#rating, #distance").change(function() {
-	 				$(this).closest("form").submit();
+					$(this).closest("form").submit();
 				});
 
 				<?php include("include/stars.html") ?>

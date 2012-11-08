@@ -47,14 +47,7 @@
 						echo "</span>\n";
 
 						echo "<h3 id = 'comments-title'> Comments </h3>";
-						$query = "SELECT * FROM ratings WHERE id = '".$id."' ORDER BY date DESC LIMIT 0, 10";
-						$result = mysql_query($query);
-						if ($result) {
-							while ($row = mysql_fetch_assoc($result)) {
-								echo "<p class = 'comment'> Rating: ".$row["rating"]."<br>";
-								echo $row["comment"]."<hr>";
-							}
-						}
+						echo "<div id = 'comments-container'></div>";
 					} else {
 						echo "Not found.";
 					}
@@ -68,6 +61,28 @@
 		</div>
 			<script>
 				<?php include("include/stars.html") ?>
+
+				// Load more results if we are at the bottom
+				function loadMoreComments() {
+					$(window).unbind('scroll');
+					$("#profile").append("<div class = 'loading'>Loading</div>");
+					page = Math.ceil($(".comment").length / 10);
+					$.get('loadMoreComments.php?id=<?php echo $id ?>&page=' + page, function(data) {
+					 	if (data != "") {
+							$("#comments-container").append(data);
+							$(window).scroll(loadMoreCommentsIfAtBottom);
+						}
+						$(".loading").remove();
+					});
+				}
+
+				function loadMoreCommentsIfAtBottom() {
+					if ($(window).scrollTop() + $(window).height() >= $(document).height()) {
+						loadMoreComments();
+					}
+				}
+
+				loadMoreComments(); // Calling the function also sets up the binding to loadMoreIfAtBottom
 
 				function getDistance(data) {
 					$.post("getdistance.php", data, function(data) {
