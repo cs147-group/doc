@@ -40,10 +40,10 @@
 						echo "<span class = 'rating rating-profile'>".$row["rating"]."</span>";
 
 						echo "<span class = 'profileButtons'>";
-						echo "<a href= '#popupMap' data-rel='popup' data-role='button' data-inline='true'>Map</a>";
+						echo "<a href= '#popupMap' data-rel='popup' data-role='button' data-theme = 'b' data-transition = 'pop' data-inline='true'>Map</a>";
 						
 						
-						echo "<a href = '#ratePopup' data-rel = 'popup' data-role = 'button' data-theme = 'b' data-transition = 'slide' data-type = 'horizontal' data-inline = 'true'> Rate </a>";
+						echo "<a href = '#ratePopup' data-rel = 'popup' data-role = 'button' data-theme = 'b' data-transition = 'pop' data-inline = 'true'> Rate </a>";
 						echo "</span>\n";
 
 						echo "<h3 id = 'comments-title'> Comments </h3>";
@@ -58,7 +58,8 @@
 			</div>
 
         	<div data-role="popup" id="popupMap" data-overlay-theme="a" data-corners="false">
-        		<a data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-popup-btn-close">Close</a><img id = "mapImage" alt="Map">
+        		<img id = "mapImage" alt="Map">
+        		<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
         	</div>
 
 			<div data-role = "popup" data-overlay-theme = "a" id = "ratePopup">
