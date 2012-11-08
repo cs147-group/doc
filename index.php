@@ -28,7 +28,7 @@
 			<h1> Find Doc </h1>
 
 			<form action = "search.php" method = "get" data-transition = "slide" id = "search-form">
-				<input type = "search" name = "symptoms" placeholder = "Symptoms, e.g. cough" id = "symptomSearch" onclick = "$('.insuranceSearch').fadeIn(500)" required>
+				<input type = "search" name = "symptoms" placeholder = "Symptoms, e.g. cough" id = "symptomSearch" onclick = "$('.insuranceSearch').show(500)" required>
 	    		<input name = "insurance" placeholder = "(optional) Your insurance" class = "insuranceSearch">
     			<input type = "submit" data-role = "button" data-theme = "b" data-icon = "arrow-r" data-transition = "slide" value = "Search">
     			<input class = "latitude" name = "latitude">
@@ -42,6 +42,12 @@
 			</p>
 
 			<script>
+				$("#homepage").live("pagebeforeshow", function() {
+					if ($(".insuranceSearch").val() != "") {
+						$('.insuranceSearch').show();
+					}
+				})
+
 				$(".latitude").val("");
 				$(".longitude").val("");
 				<?php

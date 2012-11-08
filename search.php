@@ -17,8 +17,11 @@
 			<form action = "search.php" method = "get" id = "search-form" style = "margin-bottom: 0">
 				<?php
 					if (!isset($_GET["doctor"])) {
-						echo "<input type = 'search' name = 'symptoms' placeholder = 'Type in your symptoms here' data-mini = 'true' id = 'symptomSearch' required value = '".$_GET["symptoms"]."'>";
-						echo "<input name = 'insurance' placeholder = '(optional) Your insurance' class = 'insuranceSearch'>"
+						echo "<input type = 'search' name = 'symptoms' placeholder = 'Symptoms, e.g. cough' data-mini = 'true' id = 'symptomSearch' required value = '".$_GET["symptoms"]."' onclick = '$(\".insuranceSearch\").show(500)'>";
+						echo "<input name = 'insurance' placeholder = '(optional) Your insurance' ";
+						if ($_GET["insurance"] == "") echo "class = 'insuranceSearch'";
+						else echo "value = '".$_GET["insurance"]."'";
+						echo ">";
 						?>
 						<fieldset data-role= "controlgroup" data-type = "horizontal" data-role = "fieldcontain" style = "float: right">
 							<legend> Sort by: </legend>
