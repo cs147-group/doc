@@ -4,6 +4,31 @@
 
 <body>
 
+		<script>
+		$(document).ready(function() {
+
+			// attach the plugin to an element
+			$('#swipeMe li').swipeDelete({
+				btnTheme: 'e',
+				btnLabel: 'Delete',
+				btnClass: 'aSwipeButton',
+				click: function(e){
+					e.preventDefault();
+					var url = $(e.target).attr('href');
+					$(this).parents('li').slideUp();
+					$.post(url, function(data) {
+						console.log(data);
+					});
+				}
+			});
+
+			$('#triggerMe').on('click', function(){
+				$('#swipeMe li').trigger('swiperight')
+			});
+
+		});
+	</script>
+
 	<div data-role = "page" id = "fav">
 		<div data-role = "header" data-theme = "b" data-position = "fixed">
 			<h1> My Favorite Doctors </h1>
@@ -12,8 +37,8 @@
 		</div>
 
 		<div data-role = "content">
-			<ul data-role = "listview" data-theme = "c">
-				<li>
+			<ul id = "swipeMe" data-role = "listview" data-theme = "c">
+				<li data-swipeurl="swiped.html?1">
 					<a href = "profile.php?id=4" data-transition = "slide"> 
 						<img src = "http://med.stanford.edu/profiles/viewImage?facultyId=17479&type=big&showNoImage=true&lastModified=1346976074900" class = "profilePic">
 						<h3> Ira M. Friedman </h3> 
@@ -23,7 +48,7 @@
 			</ul>
 
 			<span id = "edit-buttons">
-				<a href = "" data-role = "button" data-theme = "b" data-type = "horizontal" data-inline = "true"> Edit </a>
+				<a href = "#" data-role = "button" data-theme = "b" data-type = "horizontal" data-inline = "true" id = "triggerMe"> Edit </a>
 				<a href = "add.php" data-role = "button" data-theme = "b" data-transition = "slide" data-type = "horizontal" data-inline = "true"> Add </a>
 			</span>
 						

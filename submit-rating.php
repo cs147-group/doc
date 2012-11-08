@@ -9,10 +9,10 @@
 	if ($result) {
 		$query = "SELECT * FROM doctors WHERE id = ".$id;
 		$result = mysql_query($query);
-		if ($result && mysql_num_rows($result) != 0) {
+		if (mysql_num_rows($result) != 0) {
 			$row = mysql_fetch_assoc($result);
 			$rating = ($row["rating"] * $row["nratings"] + $rating) / ($row["nratings"] + 1);
-			$query = "UPDATE doctors SET rating = ".$rating." WHERE id = ".$id;
+			$query = "UPDATE doctors SET nratings = ".($row["nratings"] + 1).", rating = ".$rating." WHERE id = ".$id;
 			mysql_query($query);
 		}
 	}

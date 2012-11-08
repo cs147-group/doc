@@ -28,12 +28,12 @@
 			<h1> Find Doc </h1>
 
 			<form action = "search.php" method = "get" data-transition = "slide" id = "search-form">
-				<input type = "search" name = "symptoms" placeholder = "Symptoms, e.g. cough" required>
-	    		<input name = "insurance" placeholder = "(optional) Your insurance">
+				<input type = "search" name = "symptoms" placeholder = "Symptoms, e.g. cough" id = "symptomSearch" onclick = "$('.insuranceSearch').fadeIn(500)" required>
+	    		<input name = "insurance" placeholder = "(optional) Your insurance" class = "insuranceSearch">
     			<input type = "submit" data-role = "button" data-theme = "b" data-icon = "arrow-r" data-transition = "slide" value = "Search">
     			<input class = "latitude" name = "latitude">
     			<input class = "longitude" name = "longitude">
-    		</form> 
+    		</form>
 
 			<p style = "text-align: center">
 				Find a doctor, fast.

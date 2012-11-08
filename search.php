@@ -17,7 +17,8 @@
 			<form action = "search.php" method = "get" id = "search-form" style = "margin-bottom: 0">
 				<?php
 					if (!isset($_GET["doctor"])) {
-						echo "<input type = 'search' name = 'symptoms' placeholder = 'Type in your symptoms here' data-mini = 'true' required value = '".$_GET["symptoms"]."'>";
+						echo "<input type = 'search' name = 'symptoms' placeholder = 'Type in your symptoms here' data-mini = 'true' id = 'symptomSearch' required value = '".$_GET["symptoms"]."'>";
+						echo "<input name = 'insurance' placeholder = '(optional) Your insurance' class = 'insuranceSearch'>"
 						?>
 						<fieldset data-role= "controlgroup" data-type = "horizontal" data-role = "fieldcontain" style = "float: right">
 							<legend> Sort by: </legend>
@@ -33,7 +34,7 @@
 				?>
 				<input class = "latitude" name = "latitude" value = <?php echo $_GET["latitude"] ?>>
     			<input class = "longitude" name = "longitude" value = <?php echo $_GET["longitude"] ?>>
-				<input type = "submit" data-role="button" data-theme = "b" value = "Search">
+				<input type = "submit" data-role = "none" data-theme = "b" value = "Search" class = "results-search-button">
     		</form>
 
     		<br>
@@ -73,6 +74,15 @@
 				}
 
 				loadMoreResults(); // Calling the function also sets up the binding to loadMoreIfAtBottom
+
+
+				$(document).ready(function() {
+					$('.insuranceSearch').hide();
+				});
+
+				$('#search-form').click(function() {
+				 	$('.insuranceSearch').fadeIn(500);
+				});
 
 				$("#rating, #distance").change(function() {
 					$(this).closest("form").submit();
