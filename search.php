@@ -14,10 +14,11 @@
 
 		<div data-role = "content">
 
-			<form action = "search.php" method = "get" id = "search-form" style = "margin-bottom: 0">
+			<form action = "search.php" method = "get" class = "results-search-form" style = "margin-bottom: 0">
 				<?php
 					if (!isset($_GET["doctor"])) {
-						echo "<input type = 'search' name = 'symptoms' placeholder = 'Symptoms, e.g. cough' data-mini = 'true' id = 'symptomSearch' required value = '".$_GET["symptoms"]."' onclick = '$(\".insuranceSearch\").show(500)'>";
+						echo "<input type = 'search' name = 'symptoms' placeholder = 'Symptoms, e.g. cough' data-mini = 'true' class = 'symptomSearch' required value = '".$_GET["symptoms"]."' onclick = '$(\".insuranceSearch\").show(500)'>";
+						echo "<ul class = 'symptomSuggestions' data-role='listview' data-inset='true'></ul>";
 						echo "<input name = 'insurance' placeholder = '(optional) Your insurance' ";
 						if ($_GET["insurance"] == "") echo "class = 'insuranceSearch'";
 						else echo "value = '".$_GET["insurance"]."'";
@@ -50,6 +51,21 @@
 			<br><br>
 
 			<script>
+				$("#search").bind("pageshow", function() {
+					$(".symptomSearch").autocomplete({
+						target: $('.symptomSuggestions'),
+						source: "suggestions.php",
+						minLength: 1,
+						callback: function(e) {
+							var $a = $(e.currentTarget); // access the selected item
+							$('.symptomSearch').val($a.text()); // place the value of the selection into the search box
+							$(".symptomSearch").autocomplete('clear'); // clear the listview
+							$(".results-search-form").submit();
+						}
+					});
+				});
+
+
 				// Load more results if we are at the bottom
 				function loadMoreResults(page) {
 					$(window).unbind('scroll');
@@ -82,7 +98,7 @@
 					$('.insuranceSearch').hide();
 				});
 
-				$('#search-form').click(function() {
+				$('.results-search-form').click(function() {
 				 	$('.insuranceSearch').fadeIn(500);
 				});
 
