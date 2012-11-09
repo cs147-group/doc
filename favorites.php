@@ -1,6 +1,7 @@
 <html>
 
-<?php include("include/head.html") ?>
+<?php include("include/head.html")
+?>
 
 <body>
 
@@ -27,7 +28,14 @@
 			});
 
 		});
+		
+	
+				
 	</script>
+	
+	
+	
+	
 
 	<div data-role = "page" id = "fav">
 		<div data-role = "header" data-theme = "b" data-position = "fixed">
@@ -35,16 +43,12 @@
 			<a data-rel = "back" data-role = "button" data-icon = "arrow-l" data-transition = "slide" data-theme = "a">Back </a>
 			<a href = "index.php" data-role = "button" data-icon = "home" data-transition = "slide" data-theme = "a" data-direction="reverse"> Home </a>
 		</div>
-
+		
 		<div data-role = "content">
+			<?php include("include/favoriteFunctions.php"); ?>
 			<ul id = "swipeMe" data-role = "listview" data-theme = "c">
-				<li data-swipeurl="swiped.html?1">
-					<a href = "profile.php?id=4" data-transition = "slide"> 
-						<img src = "http://med.stanford.edu/profiles/viewImage?facultyId=17479&type=big&showNoImage=true&lastModified=1346976074900" class = "profilePic">
-						<h3> Ira M. Friedman </h3> 
-						<p> Phone: (650) 723-4841 <br> Hours: 9 am - 4 pm </p>
-					</a> 
-				</li>
+				
+				<?php addDoctors(); ?>
 			</ul>
 
 			<span id = "edit-buttons">
