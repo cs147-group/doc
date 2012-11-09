@@ -1,48 +1,8 @@
 <html>
 
-<?php include("include/head.html")
-?>
+<?php include("include/head.html") ?>
 
 <body>
-
-		<script>
-		$(document).ready(function() {
-
-			// attach the plugin to an element
-			$('#swipeMe li').swipeDelete({
-				btnTheme: 'e',
-				btnLabel: 'Delete',
-				btnClass: 'aSwipeButton',
-				click: function(e){
-					e.preventDefault();
-					var url = $(e.target).attr('href');
-					var id = url.substr(12);
-					<?php
-					include("include/config.php");
-					mysql_query("DELETE FROM favorites WHERE DoctorId='$id' AND cookieName = '".$_COOKIE["name"]."'");
-				
-					
-					?>
-					$(this).parents('li').slideUp();
-					$.post(url, function(data) {
-						console.log(data);
-					});
-				}
-			});
-
-			$('#triggerMe').on('click', function(){
-				$('#swipeMe li').trigger('swiperight')
-			});
-
-		});
-		
-	
-				
-	</script>
-	
-	
-	
-	
 
 	<div data-role = "page" id = "fav">
 		<div data-role = "header" data-theme = "b" data-position = "fixed">
@@ -54,15 +14,48 @@
 		<div data-role = "content">
 			<?php include("include/favoriteFunctions.php"); ?>
 			<ul id = "swipeMe" data-role = "listview" data-theme = "c">
-				
-				<?php addDoctors(); ?>
+				<?php
+					include("include/config.php");
+					$query = "SELECT * FROM favorites WHERE userid = '".$_COOKIE["userid"]."'";
+					$result = mysql_query($query);
+					while ($fav = mysql_fetch_assoc($result)) {
+						$query = "SELECT * FROM doctors WHERE id = '".$fav["doctorid"]."'";
+						$row = mysql_fetch_assoc(mysql_query($query));
+						include("include/phone.php");
+						echo "<li data-swipeurl='a.php'>";
+						echo "<a href = 'profile.php?id=".$row["id"]."' class = 'profile-link' data-transition='slide'>";
+						echo "<img src = '".$row["image"]."' class = 'profilePic'>";
+						echo "<span class = 'rating'>".$row["rating"]."</span>";
+						echo "<h3> ".$row["name"]." </h3>";
+						echo "<p>Phone: ".$phone."<br>";
+						echo "Hours: ".$row["hours"]."<br>";
+						echo "</p></a></li>\n";
+					}
+				?>
 			</ul>
 
 			<span id = "edit-buttons">
-				<a href = "#" data-role = "button" data-theme = "b" data-type = "horizontal" data-inline = "true" id = "triggerMe"> Edit </a>
+				<a data-role = "button" data-theme = "b" data-type = "horizontal" data-inline = "true" id = "triggerMe"> Edit </a>
 				<a href = "add.php" data-role = "button" data-theme = "b" data-transition = "slide" data-type = "horizontal" data-inline = "true"> Add </a>
 			</span>
-						
+
+			<script>
+				<?php include("include/stars.html") ?>
+
+				// $(document).ready(function() {
+
+				// 	$('#swipeMe li').swipeDelete({
+				// 		btnTheme: 'e',
+				// 		btnClass: 'deleteButton',
+				// 		click: function(e) {
+				// 				e.preventDefault();
+				// 				$(this).parents('li').remove();
+				// 			}
+				// 	});
+
+				// 	$('#swipeMe li').trigger('swiperight');
+				// });
+			</script>
 
 		</div>
 	</div>

@@ -1,12 +1,3 @@
-<?php
-	$date_of_expiry = time() + 1000;
-					
-	
-    	setCookie("name" , 'user');
-    					
-	
-	?>
-
 <html>
 
 <?php include("include/head.html") ?>
@@ -53,7 +44,7 @@
 						
 						
 						echo "<a href = '#ratePopup' data-rel = 'popup' data-role = 'button' data-theme = 'b' data-transition = 'pop' data-inline = 'true'> Rate </a>";
-						echo "<a href = '#addToFavorites' data-role = 'button' data-theme = 'b' data-transition = 'slide' data-type = 'horizontal' data-inline = 'true'> Add To Favorites </a>";
+						echo "<a data-role = 'button' data-theme = 'b' data-transition = 'slide' data-inline = 'true' class = 'addToFavButton'> Fav </a>";
 						echo "</span>\n";
 
 						echo "<h3 id = 'comments-title'> Comments </h3>";
@@ -66,24 +57,6 @@
 				
 				
 			</div>
-
-function addFav(){
-
-	<?php
-	$id = $_GET["id"];
-	
-	$checkID = mysql_query("SELECT DoctorID from favorites WHERE DoctorID = '$id'");
-	if($checkID){
-	mysql_query("INSERT INTO favorites (cookieName, DoctorID) VALUES('".$_COOKIE["name"]."', '$id')");
-	}
-	?>
-	<script>
-	$('fav-link').css('color', 'yellow');
-	 setTimeout(function(){
-       $('fav-link').css('color', 'white');
-   }, 5000);
-   </script>
-}
 
 			<div data-role="popup" id="popupMap" data-overlay-theme="a" data-corners="false">
 				<img id = "mapImage" alt="Map">
@@ -116,6 +89,12 @@ function addFav(){
 
 			<script>
 				<?php include("include/stars.html") ?>
+
+				$(".addToFavButton").click(function() {
+					$.get("addToFav.php?id=<?php echo $id ?>", function(data) {
+						$('.fav-link').effect("highlight", { color: "red" }, 3000);
+					});
+				});
 
 				// Load more results if we are at the bottom
 				function loadMoreComments() {

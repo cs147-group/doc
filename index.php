@@ -10,6 +10,9 @@
 		header("Location: index.php");
 		exit;
 	}
+
+	$date_of_expiry = time() + (10 * 365 * 24 * 60 * 60);
+	setCookie("userid" , "user", $date_of_expiry);
 ?>
 
 <!DOCTYPE html>
