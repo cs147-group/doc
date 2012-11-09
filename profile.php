@@ -49,11 +49,15 @@
 						echo "<span class = 'rating rating-profile'>".$row["rating"]."</span>";
 
 						echo "<span class = 'profileButtons'>";
-						echo "<a href= '#popupMap' data-rel='popup' data-role='button' data-inline='true'>Map</a>";
+						echo "<a href= '#popupMap' data-rel='popup' data-role='button' data-theme = 'b' data-transition = 'pop' data-inline='true'>Map</a>";
 						
 						
+<<<<<<< HEAD
 						echo "<a href = '#ratePopup' data-rel = 'popup' data-role = 'button' data-theme = 'b' data-transition = 'slide' data-type = 'horizontal' data-inline = 'true'> Rate </a>";
 						echo "<a href = '#addToFavorites' data-role = 'button' data-theme = 'b' data-transition = 'slide' data-type = 'horizontal' data-inline = 'true'> Add To Favorites </a>";
+=======
+						echo "<a href = '#ratePopup' data-rel = 'popup' data-role = 'button' data-theme = 'b' data-transition = 'pop' data-inline = 'true'> Rate </a>";
+>>>>>>> 8e38b2c3b25a538db8f17722a1b84c3100658633
 						echo "</span>\n";
 
 						echo "<h3 id = 'comments-title'> Comments </h3>";
@@ -67,6 +71,7 @@
 				
 			</div>
 
+<<<<<<< HEAD
 function addFav(){
 
 	<?php
@@ -85,12 +90,18 @@ function addFav(){
 }
 
 
+=======
+        	<div data-role="popup" id="popupMap" data-overlay-theme="a" data-corners="false">
+        		<img id = "mapImage" alt="Map">
+        		<a data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+        	</div>
+>>>>>>> 8e38b2c3b25a538db8f17722a1b84c3100658633
 
 			<div data-role = "popup" data-overlay-theme = "a" id = "ratePopup">
 
-				<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+				<a data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
 
-				<form id = "rate-form" action = "submit-rating.php" method = "post" data-ajax="false">
+				<form id = "rate-form" action = "submit-rating.php" method = "post">
 					<?php
 						echo "<input name = 'id' value = '".$_GET["id"]."' style = 'display: none'>";
 					?>
@@ -102,7 +113,7 @@ function addFav(){
 
 					<span class = "rateButtons">
 						<input type = "submit" value = "Submit" data-type = "horizontal" data-inline = "true" data-theme = "b">
-						<a data-rel = "back" id = "rate-cancel"> <input type = "button" value = "Cancel" data-type = "horizontal" data-inline = "true" data-theme = "b"> </a>
+						<a data-rel="back" data-role="button" data-theme="b" class="ui-btn-right">Cancel</a>
 					</span>
 				</form>
 			</div>
@@ -137,11 +148,9 @@ function addFav(){
 
 				$("#rate-form").submit(function() {
 					$.post("submit-rating.php", $("#rate-form").serialize(), function() {
-						alert(data);
-						$("#rate-cancel").click();
-						// Reload the comments
-						$("#comments-container").html("")
-						loadMoreComments();
+						<?php
+							echo "window.location.href = 'profile.php?id=".$_GET["id"]."';\n"; // Go back
+						?>
 					});
 					return false;
 				});

@@ -14,11 +14,15 @@
 
 		<div data-role = "content">
 
-			<form action = "search.php" method = "get" id = "search-form" style = "margin-bottom: 0">
+			<form action = "search.php" method = "get" class = "results-search-form" style = "margin-bottom: 0">
 				<?php
 					if (!isset($_GET["doctor"])) {
-						echo "<input type = 'search' name = 'symptoms' placeholder = 'Type in your symptoms here' data-mini = 'true' id = 'symptomSearch' required value = '".$_GET["symptoms"]."'>";
-						echo "<input name = 'insurance' placeholder = '(optional) Your insurance' class = 'insuranceSearch'>"
+						echo "<input type = 'search' name = 'symptoms' placeholder = 'Symptoms, e.g. cough' data-mini = 'true' class = 'symptomSearch' required value = '".$_GET["symptoms"]."' onclick = '$(\".insuranceSearch\").show(500)'>";
+						echo "<ul class = 'symptomSuggestions' data-role='listview' data-inset='true'></ul>";
+						echo "<input name = 'insurance' placeholder = '(optional) Your insurance' ";
+						if ($_GET["insurance"] == "") echo "class = 'insuranceSearch'";
+						else echo "value = '".$_GET["insurance"]."'";
+						echo ">";
 						?>
 						<fieldset data-role= "controlgroup" data-type = "horizontal" data-role = "fieldcontain" style = "float: right">
 							<legend> Sort by: </legend>
@@ -41,26 +45,41 @@
 
 			<?php include("include/fav-link.html"); ?>
 
-			<ul data-role = "listview" data-theme = "c" <?php if (!isset($_GET["doctor"])) echo "style = 'padding-top: 50px'" ?>>
+			<ul data-role = "listview" data-theme = "c" class = "search-ul" <?php if (!isset($_GET["doctor"])) echo "style = 'padding-top: 50px'" ?>>
 			</ul>
 
 			<br><br>
 
 			<script>
+				$("#search").bind("pageshow", function() {
+					$(".symptomSearch").autocomplete({
+						target: $('.symptomSuggestions'),
+						source: "suggestions.php",
+						minLength: 1,
+						callback: function(e) {
+							var $a = $(e.currentTarget); // access the selected item
+							$('.symptomSearch').val($a.text()); // place the value of the selection into the search box
+							$(".symptomSearch").autocomplete('clear'); // clear the listview
+							$(".results-search-form").submit();
+						}
+					});
+				});
+
+
 				// Load more results if we are at the bottom
-				function loadMoreResults() {
+				function loadMoreResults(page) {
 					$(window).unbind('scroll');
 					$("#search").append("<div class = 'loading'>Loading</div>");
-					page = Math.ceil($("li").length / 10);
+					if (page == -1) page = Math.ceil($("li").length / 10);
 					$.get('loadMoreResults.php?param=<?php echo serialize($_GET); ?>&page=' + page, function(data) {
 					 	if (data != "No results found.") {
-							$("ul").append(data);
-							$("ul").listview("refresh");
+							$(".search-ul").append(data);
+							$(".search-ul").listview("refresh");
 							$(".rating").stars();
 							$(window).scroll(loadMoreResultsIfAtBottom);
 						} else {
-							if ($("ul li").length == 0) {
-								$("ul").append("No results found.");
+							if ($(".search-ul li").length == 0) {
+								$(".search-ul").append("No results found.");
 							}
 						}
 						$(".loading").remove();
@@ -69,18 +88,17 @@
 
 				function loadMoreResultsIfAtBottom() {
 					if ($(window).scrollTop() + $(window).height() >= $(document).height()) {
-						loadMoreResults();
+						loadMoreResults(-1);
 					}
 				}
 
-				loadMoreResults(); // Calling the function also sets up the binding to loadMoreIfAtBottom
-
+				loadMoreResults(0); // Calling the function also sets up the binding to loadMoreIfAtBottom
 
 				$(document).ready(function() {
 					$('.insuranceSearch').hide();
 				});
 
-				$('#search-form').click(function() {
+				$('.results-search-form').click(function() {
 				 	$('.insuranceSearch').fadeIn(500);
 				});
 

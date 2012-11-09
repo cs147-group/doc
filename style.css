@@ -47,7 +47,7 @@ p {
 	margin: 0px;
 }
 
-li, li > div:first-child {
+.search-ul li, .search-ul li > div:first-child {
 	min-height: 100px;
 }
 

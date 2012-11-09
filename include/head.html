@@ -12,19 +12,17 @@
 	<link href = 'http://fonts.googleapis.com/css?family=Montserrat+Alternates:700' rel = 'stylesheet' type = 'text/css'>
 	<link href = 'http://fonts.googleapis.com/css?family=Raleway' rel = 'stylesheet' type = 'text/css'>
 	<link href = "style.css" rel = "stylesheet" type = "text/css">
-	<link rel="stylesheet" href="jquery.swipeButton.css" />
 	<script src = "http://code.jquery.com/jquery-1.8.2.min.js"> </script>
 	<script src = "http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"> </script>
-	<script src="jquery.swipeButton-1.2.1.min.js"></script>
-	<!-- 
-	Adds a suggestion to the user to add an icon to the homepage
 
-	<link rel="stylesheet" href="add2home.css">
-	<script type="application/javascript" src="add2home.js"></script> 
-	-->
+	<link rel="stylesheet" href="lib/jquery.swipeButton.css" />
+	<script src="lib/jquery.swipeButton-1.2.1.min.js"></script>
+	<link rel="stylesheet" href="lib/add2home.css">
+	<script src="lib/add2home.js"></script> 
+	<script src="lib/jqm.autoComplete-1.4.3-min.js"></script>
 
 	<script type="text/javascript">
-		 $(document).ready(function() {
+ 		$(document).bind('pageinit', function() {
 			$('.insuranceSearch').hide();
 		});
 	</script>
