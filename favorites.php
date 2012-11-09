@@ -12,7 +12,6 @@
 		</div>
 		
 		<div data-role = "content">
-			<?php include("include/favoriteFunctions.php"); ?>
 			<ul id = "swipeMe" data-role = "listview" data-theme = "c">
 				<?php
 					include("include/config.php");
