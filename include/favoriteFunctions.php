@@ -30,6 +30,8 @@ function addDoctors(){
     								
     							
 							}
+						}else {
+							echo '<p> You have no favorite doctors! </p>';
 						}
 					
 					

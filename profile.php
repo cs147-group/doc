@@ -72,8 +72,10 @@ function addFav(){
 	<?php
 	$id = $_GET["id"];
 	
-	
+	$checkID = mysql_query("SELECT DoctorID from favorites WHERE DoctorID = '$id'");
+	if($checkID){
 	mysql_query("INSERT INTO favorites (cookieName, DoctorID) VALUES('".$_COOKIE["name"]."', '$id')");
+	}
 	?>
 	<script>
 	$('fav-link').css('color', 'yellow');
