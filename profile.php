@@ -84,7 +84,6 @@ function addFav(){
    </script>
 }
 
-?>
 
 
 			<div data-role = "popup" data-overlay-theme = "a" id = "ratePopup">
