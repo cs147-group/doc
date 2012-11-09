@@ -1,3 +1,12 @@
+<?php
+	$date_of_expiry = time() + 1000;
+					
+	
+    	setCookie("name" , 'user');
+    					
+	
+	?>
+
 <html>
 
 <?php include("include/head.html") ?>
@@ -44,6 +53,7 @@
 						
 						
 						echo "<a href = '#ratePopup' data-rel = 'popup' data-role = 'button' data-theme = 'b' data-transition = 'slide' data-type = 'horizontal' data-inline = 'true'> Rate </a>";
+						echo "<a href = '#addToFavorites' data-role = 'button' data-theme = 'b' data-transition = 'slide' data-type = 'horizontal' data-inline = 'true'> Add To Favorites </a>";
 						echo "</span>\n";
 
 						echo "<h3 id = 'comments-title'> Comments </h3>";
@@ -57,9 +67,25 @@
 				
 			</div>
 
-        	<div data-role="popup" id="popupMap" data-overlay-theme="a" data-corners="false">
-        		<a data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-popup-btn-close">Close</a><img id = "mapImage" alt="Map">
-        	</div>
+function addFav(){
+
+	<?php
+	$id = $_GET["id"];
+	
+	echo $_COOKIE["name"];
+	mysql_query("INSERT INTO favorites (cookieName, DoctorID) VALUES('".$_COOKIE["name"]."', '$id')");
+	echo success
+	?>
+	<script>
+	$('fav-link').css('color', 'yellow');
+	 setTimeout(function(){
+       $('fav-link').css('color', 'white');
+   }, 5000);
+   </script>
+}
+
+?>
+
 
 			<div data-role = "popup" data-overlay-theme = "a" id = "ratePopup">
 
@@ -150,7 +176,7 @@
 								$url = "http://api.ipinfodb.com/v3/ip-city/?key=16ceb4e81c46df1a31558904f1da1f79e2edabc509f4ec44bdc8c169fb71a193&format=xml&ip=".$_SERVER["REMOTE_ADDR"];
 								$xml = simplexml_load_file($url);
 								echo "$('.latitude').val(".$xml->latitude.");";
-								echo "$('.longitude').val(".$xml->longitude.");";
+								echo "$('.longitude').val".$xml->longitude.");";
 								echo "getDistance({";
 									echo "id: ".$_GET["id"].",";
 									echo "latitude: ".$xml->latitude.",";
