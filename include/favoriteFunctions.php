@@ -18,7 +18,7 @@ function addDoctors(){
     							$resultTwo = mysql_query($queryTwo);
     							$rowTwo = mysql_fetch_array($resultTwo, MYSQL_ASSOC);
     							
-    							echo '<li>';
+    							echo '<li data-swipeurl="swiped.html?'.$id.'">';
     							 echo "<img src = '".$rowTwo["image"]."'class = 'profilePic'>";
     							echo '<a href = "profile.php?id='.$id.'" data-transition = "slide"';
     								

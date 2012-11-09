@@ -16,6 +16,13 @@
 				click: function(e){
 					e.preventDefault();
 					var url = $(e.target).attr('href');
+					//var id = url.substr(12);
+					/*<?php
+					include("include/config.php");
+					mysql_query("DELETE FROM favorites WHERE DoctorId='$id' AND cookieName = '".$_COOKIE["name"]."'");
+				
+					
+					?>*/
 					$(this).parents('li').slideUp();
 					$.post(url, function(data) {
 						console.log(data);

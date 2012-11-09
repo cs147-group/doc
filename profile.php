@@ -74,7 +74,6 @@ function addFav(){
 	
 	
 	mysql_query("INSERT INTO favorites (cookieName, DoctorID) VALUES('".$_COOKIE["name"]."', '$id')");
-	echo success
 	?>
 	<script>
 	$('fav-link').css('color', 'yellow');
