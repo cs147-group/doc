@@ -44,7 +44,7 @@
 
 			<?php include("include/fav-link.html"); ?>
 
-			<ul data-role = "listview" data-theme = "c" <?php if (!isset($_GET["doctor"])) echo "style = 'padding-top: 50px'" ?>>
+			<ul data-role = "listview" data-theme = "c" class = "search-ul" <?php if (!isset($_GET["doctor"])) echo "style = 'padding-top: 50px'" ?>>
 			</ul>
 
 			<br><br>
@@ -57,13 +57,13 @@
 					if (page == -1) page = Math.ceil($("li").length / 10);
 					$.get('loadMoreResults.php?param=<?php echo serialize($_GET); ?>&page=' + page, function(data) {
 					 	if (data != "No results found.") {
-							$("ul").append(data);
-							$("ul").listview("refresh");
+							$(".search-ul").append(data);
+							$(".search-ul").listview("refresh");
 							$(".rating").stars();
 							$(window).scroll(loadMoreResultsIfAtBottom);
 						} else {
-							if ($("ul li").length == 0) {
-								$("ul").append("No results found.");
+							if ($(".search-ul li").length == 0) {
+								$(".search-ul").append("No results found.");
 							}
 						}
 						$(".loading").remove();
