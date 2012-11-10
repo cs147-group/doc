@@ -59,7 +59,7 @@
 			</div>
 
 			<div data-role="popup" id="popupMap" data-overlay-theme="a" data-corners="false">
-				<img id = "mapImage" alt="Map">
+				<img id = "mapImage" alt = "Map" src = "https://maps.googleapis.com/maps/api/staticmap?center=<?php echo $row['latitude'].'+'.$row['longitude'] ?>&zoom=13&size=400x400&sensor=false">
 				<a data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
 			</div>
 
@@ -133,13 +133,6 @@
 					});
 				}
 
-				function setImage() {
-					$("#mapImage").attr("src", function() {
-						return "https://maps.googleapis.com/maps/api/staticmap?center=" + $(".latitude").val() + "+" + $(".longitude").val() +
-							"&zoom=13&size=400x400&sensor=false";
-					});
-				}
-
 				if (navigator.geolocation) {
 					navigator.geolocation.getCurrentPosition(function (position) {
 						$(".latitude").val(position.coords.latitude);
@@ -149,7 +142,6 @@
 							latitude: position.coords.latitude,
 							longitude: position.coords.longitude
 						});
-						setImage();
 					}, function () {
 						<?php
 							if ($_SERVER['SERVER_NAME'] != "localhost") {
@@ -164,7 +156,6 @@
 								echo "});";
 							}
 						?>
-						setImage();
 					});
 				}
 			</script>
