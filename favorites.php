@@ -27,7 +27,7 @@
 						echo "<span class = 'rating'>".$row["rating"]."</span>";
 						echo "<h3> ".$row["name"]." </h3>";
 						echo "<p>Phone: ".$phone."<br>";
-						echo "Hours: ".$row["hours"]."<br>";
+						echo "Hours: ".$row["hours"]."<a data-role = 'button' data-theme = 'e' data-inline = 'true' id = 'deleteButton' hidden = 'true'> Delete </a> <br>";
 						echo "</p></a></li>\n";
 					}
 				?>
@@ -54,6 +54,10 @@
 
 				// 	$('#swipeMe li').trigger('swiperight');
 				// });
+
+				$("#deleteButton").live ("vclick", function (event){
+					$(this).parent().remove ();
+				});
 			</script>
 
 		</div>
