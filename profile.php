@@ -4,7 +4,7 @@
 
 <body>
 
-	<div data-role = "page" id = "profile">
+	<div data-role = "page" id = "profile<?php echo $_GET["id"] ?>">
 
 		<div data-role = "header" data-theme = "b" data-position = "fixed">
 			<h1> Doctor Profile </h1>
@@ -48,7 +48,7 @@
 						echo "</span>\n";
 
 						echo "<h3 id = 'comments-title'> Comments </h3>";
-						echo "<div id = 'comments-container'></div>";
+						echo "<div class = 'comments-container'></div>";
 					} else {
 						echo "Not found.";
 					}
@@ -67,7 +67,7 @@
 
 				<a data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
 
-				<form id = "rate-form" action = "submit-rating.php" method = "post">
+				<form id = "rate-form<?php echo $id ?>" action = "submit-rating.php" method = "post">
 					<?php
 						echo "<input name = 'id' value = '".$_GET["id"]."' style = 'display: none'>";
 					?>
@@ -84,80 +84,84 @@
 				</form>
 			</div>
 
-		<script>
-		</script>
-
 			<script>
 				<?php include("include/stars.html") ?>
 
-				$(".addToFavButton").click(function() {
-					$.get("addToFav.php?id=<?php echo $id ?>", function(data) {
-						$('.fav-link').effect("highlight", { color: "red" }, 3000);
-					});
-				});
+				$("#profile<?php echo $id ?>").die("pagebeforeshow"); // Remove any previous bindings so that the code is not run twice
 
-				// Load more results if we are at the bottom
-				function loadMoreComments() {
-					$(window).unbind('scroll');
-					$("#profile").append("<div class = 'loading'>Loading</div>");
-					page = Math.ceil($(".comment").length / 10);
-					$.get('loadMoreComments.php?id=<?php echo $id ?>&page=' + page, function(data) {
-					 	if (data != "") {
-							$("#comments-container").append(data);
-							$(window).scroll(loadMoreCommentsIfAtBottom);
-						}
-						$(".loading").remove();
-					});
-				}
+				$("#profile<?php echo $id ?>").live("pagebeforeshow", function() {
+					$(".comments-container").html("");
+					loadMoreComments(); // Calling the function also sets up the binding to loadMoreIfAtBottom
 
-				function loadMoreCommentsIfAtBottom() {
-					if ($(window).scrollTop() + $(window).height() >= $(document).height()) {
-						loadMoreComments();
-					}
-				}
-
-				loadMoreComments(); // Calling the function also sets up the binding to loadMoreIfAtBottom
-
-				$("#rate-form").submit(function() {
-					$.post("submit-rating.php", $("#rate-form").serialize(), function() {
-						<?php
-							echo "window.location.href = 'profile.php?id=".$_GET["id"]."';\n"; // Go back
-						?>
-					});
-					return false;
-				});
-
-				function getDistance(data) {
-					$.post("getdistance.php", data, function(data) {
-						$(".distance").html(data);
-					});
-				}
-
-				if (navigator.geolocation) {
-					navigator.geolocation.getCurrentPosition(function (position) {
-						$(".latitude").val(position.coords.latitude);
-						$(".longitude").val(position.coords.longitude);
-						getDistance({
-							id: <?php echo $_GET["id"] ?>,
-							latitude: position.coords.latitude,
-							longitude: position.coords.longitude
+					$(".addToFavButton").click(function() {
+						$.get("addToFav.php?id=<?php echo $id ?>", function(data) {
+							$('.fav-link').effect("highlight", { color: "red" }, 3000);
 						});
-					}, function () {
-						<?php
-							if ($_SERVER['SERVER_NAME'] != "localhost") {
-								$url = "http://api.ipinfodb.com/v3/ip-city/?key=16ceb4e81c46df1a31558904f1da1f79e2edabc509f4ec44bdc8c169fb71a193&format=xml&ip=".$_SERVER["REMOTE_ADDR"];
-								$xml = simplexml_load_file($url);
-								echo "$('.latitude').val(".$xml->latitude.");";
-								echo "$('.longitude').val(".$xml->longitude.");";
-								echo "getDistance({";
-									echo "id: ".$_GET["id"].",";
-									echo "latitude: ".$xml->latitude.",";
-									echo "longitude: ".$xml->longitude;
-								echo "});";
-							}
-						?>
 					});
-				}
+
+					// Load more results if we are at the bottom
+					function loadMoreComments() {
+						$(window).unbind('scroll');
+						$(".profile").append("<div class = 'loading'>Loading</div>");
+						page = Math.ceil($(".comment").length / 10);
+						$.get('loadMoreComments.php?id=<?php echo $id ?>&page=' + page, function(data) {
+						 	if (data != "") {
+								$(".comments-container").append(data);
+								$(window).scroll(loadMoreCommentsIfAtBottom);
+							}
+							$(".loading").remove();
+						});
+					}
+
+					function loadMoreCommentsIfAtBottom() {
+						if ($(window).scrollTop() + $(window).height() >= $(document).height()) {
+							loadMoreComments();
+						}
+					}
+
+					$("#rate-form<?php echo $id ?>").unbind("submit");
+
+					$("#rate-form<?php echo $id ?>").submit(function() {
+						$.post("submit-rating.php", $("#rate-form<?php echo $id ?>").serialize(), function() {
+							<?php
+								echo "window.location.href = 'profile.php?id=".$_GET["id"]."';\n"; // Go back
+							?>
+						});
+						return false;
+					});
+
+					function getDistance(data) {
+						$.post("getdistance.php", data, function(data) {
+							$(".distance").html(data);
+						});
+					}
+
+					if (navigator.geolocation) {
+						navigator.geolocation.getCurrentPosition(function (position) {
+							$(".latitude").val(position.coords.latitude);
+							$(".longitude").val(position.coords.longitude);
+							getDistance({
+								id: <?php echo $_GET["id"] ?>,
+								latitude: position.coords.latitude,
+								longitude: position.coords.longitude
+							});
+						}, function () {
+							<?php
+								if ($_SERVER['SERVER_NAME'] != "localhost") {
+									$url = "http://api.ipinfodb.com/v3/ip-city/?key=16ceb4e81c46df1a31558904f1da1f79e2edabc509f4ec44bdc8c169fb71a193&format=xml&ip=".$_SERVER["REMOTE_ADDR"];
+									$xml = simplexml_load_file($url);
+									echo "$('.latitude').val(".$xml->latitude.");";
+									echo "$('.longitude').val(".$xml->longitude.");";
+									echo "getDistance({";
+										echo "id: ".$_GET["id"].",";
+										echo "latitude: ".$xml->latitude.",";
+										echo "longitude: ".$xml->longitude;
+									echo "});";
+								}
+							?>
+						});
+					}
+				});
 			</script>
 
 		</div>
