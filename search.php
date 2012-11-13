@@ -94,10 +94,6 @@
 
 				loadMoreResults(0); // Calling the function also sets up the binding to loadMoreIfAtBottom
 
-				$(document).ready(function() {
-					$('.insuranceSearch').hide();
-				});
-
 				$('.results-search-form').click(function() {
 				 	$('.insuranceSearch').fadeIn(500);
 				});
