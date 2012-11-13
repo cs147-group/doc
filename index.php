@@ -30,7 +30,7 @@
 		<div data-role = "content">
 			<?php include("include/fav-link.html"); ?>
 
-			<h1> Find Doc </h1>
+			<h1> Doc </h1>
 
 			<form action = "search.php" method = "get" data-transition = "slide" id = "search-form">
 				<input type = "search" name = "symptoms" placeholder = "Symptoms, e.g. cough" class = "symptomSearch" onclick = "$('.insuranceSearch').show(500)" required>
