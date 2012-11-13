@@ -110,9 +110,25 @@ p {
 }
 
 #edit-buttons {
-	position: absolute;
+	position: fixed;
+	left: 0;
+	bottom: -5px;
+	padding: 5px 0;
+	z-index: 100;
+	width: 100%;
+	background: #EEE;
+}
+
+#editButton {
+	left: 20%;
+}
+
+#addButton {
 	left: 25%;
-	bottom: 5%;
+}
+
+#swipeMe {
+	margin-bottom: 60px;
 }
 
 #add-fav-title {
@@ -159,11 +175,3 @@ p {
 }
 
 #ratePopup { padding: 10px; }
-
-.deleteButton {
-	padding-right: 40px !important;
-	padding-top: 33px !important;
-	float: right;
-	height: 75px;
-	width: 150px;
-}
