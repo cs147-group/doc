@@ -3,7 +3,7 @@
 	$id = $_POST["id"];
 	$date = date('Y-m-d H:i:s', time()); // From http://www.richardlord.net/blog/dates-in-php-and-mysql
 	$rating = $_POST["rating"];
-	$comment = $_POST["comment"];
+	$comment = mysql_real_escape_string($_POST["comment"]);
 	$query = "INSERT INTO ratings (id, date, rating, comment) VALUES ('$id', '$date', '$rating', '$comment')";
 	$result = mysql_query($query);
 	if ($result) {
