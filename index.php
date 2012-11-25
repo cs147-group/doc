@@ -55,10 +55,14 @@
 						minLength: 1,
 						callback: function(e) {
 							var $a = $(e.currentTarget); // access the selected item
+							var right = $a.offset().left + $a.width() + 50;
 							$('.symptomSearch').val($a.text()); // place the value of the selection into the search box
 							$(".symptomSearch").autocomplete('clear'); // clear the listview
-							$("#search-form").submit();
-						}
+							if (e.pageX < right) { // clicked list element, not fill arrow
+								$("#search-form").submit();
+							}
+						},
+						loadingHtml: ''
 					});
 				});
 
