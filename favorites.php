@@ -6,7 +6,7 @@
 
 	<div data-role = "page" id = "fav">
 		<div data-role = "header" data-theme = "b" data-position = "fixed">
-			<h1> My Favorite Doctors </h1>
+			<h1> My Current Doctors </h1>
 			<a data-rel = "back" data-role = "button" data-icon = "arrow-l" data-transition = "slide" data-theme = "a">Back </a>
 			<a href = "index.php" data-role = "button" data-icon = "home" data-transition = "slide" data-theme = "a" data-direction="reverse"> Home </a>
 		</div>
