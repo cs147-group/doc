@@ -79,6 +79,7 @@
 			echo "<h3> ".$row["name"]." </h3>";
 			echo "<p>Phone: ".$phone."<br>";
 			echo "Hours: ".$row["hours"]."<br>";
+			echo "Distance: ".round($row["distance"], 1)." mi";
 			echo "</p></a></li>\n";
 		}
 	} else {
