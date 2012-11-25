@@ -1,6 +1,34 @@
 <html>
 
+#Google Maps API code
+
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <style type="text/css">
+      html { height: 100% }
+      body { height: 100%; margin: 100; padding: 5000 }
+      #map_canvas { height: 100% }
+    </style>
+    <script type="text/javascript"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBeTvPhbmbAaPF-yJ2uXYQwPxiuVGETl4o&sensor=true">
+    </script>
+    <script type="text/javascript">
+      function initialize() {
+      	
+        var mapOptions = {
+          center: new google.maps.LatLng(-34.397, 150.644),
+          zoom: 8,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        var map = new google.maps.Map(document.getElementById("map_canvas"),
+            mapOptions);
+      }
+    </script>
+
+
+
 <?php include("include/head.html") ?>
+
+
 
 <body>
 
@@ -19,7 +47,7 @@
 			</form>
 
 			<?php include("include/fav-link.html"); ?>
-
+			
 			<div class = "businessCard">
 				<?php
 					include("include/config.php");
@@ -39,25 +67,34 @@
 						echo "</p></div>\n";
 						echo "<span class = 'rating rating-profile'>".$row["rating"]."</span>";
 
+
+
+
+    
 						echo "<span class = 'profileButtons'>";
-						echo "<a href= '#popupMap' data-rel='popup' data-role='button' data-theme = 'b' data-transition = 'pop' data-inline='true'>Map</a>";
+						#echo "<a href= '#popupMap' data-rel='popup' data-role='button' data-theme = 'b' data-transition = 'pop' data-inline='true'>Map</a>";
 						
 						
 						echo "<a href = '#ratePopup' data-rel = 'popup' data-role = 'button' data-theme = 'b' data-transition = 'pop' data-inline = 'true'> Rate </a>";
 						echo "<a data-role = 'button' data-theme = 'b' data-transition = 'slide' data-inline = 'true' class = 'addToFavButton'> Fav </a>";
 						echo "</span>\n";
-
+?>
+<body onload="initialize()" onunload="GUnload()">
+    <div id="map_canvas" style="width: 500px; height: 300px"></div>
+<?php
 						echo "<h3 id = 'comments-title'> Comments </h3>";
 						echo "<div class = 'comments-container'></div>";
 					} else {
 						echo "Not found.";
 					}
 				?>
-				
+			
+    
+      </body>
 				
 				
 			</div>
-
+			
 			<div data-role="popup" id="popupMap" data-overlay-theme="a" data-corners="false">
 				<img id = "mapImage" alt = "Map" src = "https://maps.googleapis.com/maps/api/staticmap?center=<?php echo $row['latitude'].'+'.$row['longitude'] ?>&zoom=13&size=400x400&sensor=false">
 				<a data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
