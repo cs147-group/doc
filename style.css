@@ -48,6 +48,12 @@ p {
 	background-image: -webkit-linear-gradient( white,#F1F1F1 );
 }
 
+.noResultsFound {
+	font-family: 'Raleway', sans-serif;
+	text-align: center;
+	color: red;
+}
+
 .profilePic {
 	max-width: 60px;
 	top: 10px;

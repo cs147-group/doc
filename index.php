@@ -35,6 +35,7 @@
 			<form action = "search.php" method = "get" data-transition = "slide" id = "search-form">
 				<input type = "search" name = "symptoms" placeholder = "Symptoms, e.g. cough" class = "symptomSearch" onclick = "$('.insuranceSearch').show(500)" required>
 				<ul class = "symptomSuggestions" data-role="listview" data-inset="true"></ul>
+				<div class = "noResultsFound"></div>
 	    		<input name = "insurance" placeholder = "(optional) Your insurance" class = "insuranceSearch">
     			<input type = "submit" data-role = "button" data-theme = "b" data-icon = "arrow-r" data-transition = "slide" value = "Search">
     			<input class = "latitude" name = "latitude">
