@@ -19,6 +19,7 @@
 			} else {
 				$order = "rating DESC";
 			}
+			if ($from == 0) echo "<div class = 'search-info'> We searched for ".$row["specialty"]."s ";
 			$query = "SELECT *, ( 3959 * acos( cos( radians(".$_GET["latitude"].") ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(".$_GET["longitude"].") ) + sin( radians(".$_GET["latitude"].") ) * sin( radians( latitude ) ) ) ) AS distance ".  // From https://developers.google.com/maps/articles/phpsqlsearch_v3
 			"FROM doctors WHERE specialties = '".$row["specialty"]."' AND insurance LIKE '%{$insurance}%' HAVING distance < 30 ORDER BY ".$order." LIMIT ".$from.", ".$to;
 			$result = mysql_query($query);
@@ -36,9 +37,11 @@
 					"FROM doctors WHERE specialties = '".$row["specialty"]."' AND insurance LIKE '%{$insurance}%' HAVING distance < 100 ORDER BY ".$order." LIMIT ".$from.", ".$to;
 					$result = mysql_query($query);
 					if (mysql_num_rows($result) != 0) {
-						echo "<div class = 'wrapper'><div class = 'hide'>Your search distance has been expanded</div></div>";
+						if ($from == 0) echo "within 100 miles. </div>";
 					}
 				}
+			} else {
+				if ($from == 0) echo "within 30 miles. </div>";
 			}
 		}
 	} else {

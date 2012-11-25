@@ -39,6 +39,10 @@ p {
 	padding-left: 70px !important;
 }
 
+.search-info {
+	margin: 15px;
+}
+
 .ui-controlgroup-label {
 	display: inline;
 }
