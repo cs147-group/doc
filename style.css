@@ -122,15 +122,55 @@ p {
 }
 
 .doctor-details img {
-	float: left;
 	width: 60px;
 	max-height: 100px;
-	left: 10px;
-	margin-right: 10px;
+}
+
+.img-wrapper {
+	position: absolute;
+}
+
+@-webkit-keyframes image {
+	0% {
+		-webkit-transform: translateX(0px);
+		width: 60px;
+	}
+	100% {
+		-webkit-transform: translateX(280px);
+		width: 20px;
+	}
+}
+
+@-webkit-keyframes imageWrapper {
+	0% { -webkit-transform: translateY(0px); }
+	30% { -webkit-transform: translateY(20px); }
+	40% { -webkit-transform: translateY(10px); }
+	50% { -webkit-transform: translateY(0px); }
+	100% { -webkit-transform: translateY(-30px); }
+}
+
+.profile-img-fav {
+	-webkit-animation: image 1s ease-out;
+}
+
+.profile-img-wrapper-fav {
+	-webkit-animation: imageWrapper 1s ease-out;
+}
+
+@-webkit-keyframes favHighlight {
+	0% { background: rgba(0, 0, 0, 0.5); }
+	10% { background: red; }
+	100% { background: rgba(0, 0, 0, 0.5); }
+}
+
+.fav-highlight {
+	-webkit-animation: favHighlight 1s linear;
+	-webkit-animation-delay: 1s;
 }
 
 .doctor-details p {
 	font-size: 15px;
+	margin-left: 70px;
 }
 
 .profileButtons {
@@ -169,11 +209,6 @@ p {
 	display: none !important;
 }
 
-@-webkit-keyframes fadeOut {
-	from { opacity: 1; }
-	to { opacity: 0; }
-}
-
 .wrapper {
 	top: 5px;
 	left: 0px;
@@ -181,6 +216,11 @@ p {
 	z-index: 1000;
 	text-align: center;
 	width: 100%;
+}
+
+@-webkit-keyframes fadeOut {
+	from { opacity: 1; }
+	to { opacity: 0; }
 }
 
 .hide {
