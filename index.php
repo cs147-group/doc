@@ -35,6 +35,7 @@
 			<form action = "search.php" method = "get" data-transition = "slide" id = "search-form">
 				<input type = "search" name = "symptoms" placeholder = "Symptoms, e.g. cough" class = "symptomSearch" onclick = "$('.insuranceSearch').show(500)" required>
 				<ul class = "symptomSuggestions" data-role="listview" data-inset="true"></ul>
+				<div class = "noResultsFound"></div>
 	    		<input name = "insurance" placeholder = "(optional) Your insurance" class = "insuranceSearch">
     			<input type = "submit" data-role = "button" data-theme = "b" data-icon = "arrow-r" data-transition = "slide" value = "Search">
     			<input class = "latitude" name = "latitude">
@@ -55,10 +56,14 @@
 						minLength: 1,
 						callback: function(e) {
 							var $a = $(e.currentTarget); // access the selected item
+							var right = $a.offset().left + $a.width() + 50;
 							$('.symptomSearch').val($a.text()); // place the value of the selection into the search box
 							$(".symptomSearch").autocomplete('clear'); // clear the listview
-							$("#search-form").submit();
-						}
+							if (e.pageX < right) { // clicked list element, not fill arrow
+								$("#search-form").submit();
+							}
+						},
+						loadingHtml: ''
 					});
 				});
 

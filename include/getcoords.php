@@ -1,6 +1,14 @@
 $("#<?php echo $id ?>").submit(function() {
 	if ($(".latitude").val() != "" && $(".longitude").val() != "") {
-		return true;
+		jQuery.ajaxSetup({async:false}); // Do next get synchronously
+		$.get("suggestions.php?term=" + $(".symptomSearch").val(), function (data) {
+			jQuery.ajaxSetup({async:true});
+			symptomsFound = !(data == "[]");
+			if (!symptomsFound) {
+				$(".noResultsFound").text("No results found. Please try a different symptom.");
+			}
+		});
+		return symptomsFound;
 	}
 	if (navigator.geolocation) {
 		navigator.geolocation.getCurrentPosition(function (position) {
