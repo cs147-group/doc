@@ -44,7 +44,7 @@
 						include("include/phone.php");
 						echo "<h3> ".$row["name"]." </h3>";
 						echo "<div class = 'doctor-details'>";
-						echo "<div class = 'img-wrapper'><img src = '".$row["image"]."'></div>";
+						echo "<img src = '".$row["image"]."'>";
 						echo "<p> Specialty: ".$row["specialties"]."<br>";
 						echo "Phone: <a href='tel:+1".$row["phone"]."'>".$phone."</a><br>";
 						echo "Hours: ".$row["hours"]."<br>";
@@ -135,14 +135,7 @@
 
 					$(".addToFavButton").click(function() {
 						$.get("addToFav.php?id=<?php echo $id ?>", function(data) {
-							$('.fav-link').addClass("fav-highlight");
-							$(".doctor-details img").addClass("profile-img-fav");
-							$(".img-wrapper").addClass("profile-img-wrapper-fav");
-							window.setTimeout(function() {
-								$('.fav-link').removeClass("fav-highlight");
-								$(".doctor-details img").removeClass("profile-img-fav");
-								$(".img-wrapper").removeClass("profile-img-wrapper-fav");
-							}, 2000)
+							$('.fav-link').effect("highlight", { color: "red" }, 3000);
 						});
 					});
 
@@ -187,6 +180,9 @@
 						navigator.geolocation.getCurrentPosition(function (position) {
 							$(".latitude").val(position.coords.latitude);
 							$(".longitude").val(position.coords.longitude);
+							
+							#add the variables for the user's current location here
+							
 							getDistance({
 								id: <?php echo $_GET["id"] ?>,
 								latitude: position.coords.latitude,
