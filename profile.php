@@ -2,27 +2,8 @@
 
 #Google Maps API code
 
-<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-    <style type="text/css">
-      html { height: 100% }
-      body { height: 100%; margin: 100; padding: 5000 }
-      #map_canvas { height: 100% }
-    </style>
-    <script type="text/javascript"
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBeTvPhbmbAaPF-yJ2uXYQwPxiuVGETl4o&sensor=true">
-    </script>
-    <script type="text/javascript">
-      function initialize() {
-      	
-        var mapOptions = {
-          center: new google.maps.LatLng(-34.397, 150.644),
-          zoom: 8,
-          mapTypeId: google.maps.MapTypeId.ROADMAP
-        };
-        var map = new google.maps.Map(document.getElementById("map_canvas"),
-            mapOptions);
-      }
-    </script>
+
+    
 
 
 
@@ -56,6 +37,10 @@
 					$result = mysql_query($query);
 					if ($result && mysql_num_rows($result) != 0) {
 						$row = mysql_fetch_assoc($result);
+						
+						$latitude = $row["latitude"];
+						$longitude = $row["longitude"];
+						
 						include("include/phone.php");
 						echo "<h3> ".$row["name"]." </h3>";
 						echo "<div class = 'doctor-details'>";
@@ -79,7 +64,24 @@
 						echo "<a data-role = 'button' data-theme = 'b' data-transition = 'slide' data-inline = 'true' class = 'addToFavButton'> Fav </a>";
 						echo "</span>\n";
 ?>
+
+<script type="text/javascript">
+      function initialize() {
+      	
+        var mapOptions = {
+          center: new google.maps.LatLng(<?php echo $latitude ?>, <?php echo $longitude ?>),
+          zoom: 8,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        var map = new google.maps.Map(document.getElementById("map_canvas"),
+            mapOptions);
+      }
+    </script>
+
 <body onload="initialize()" onunload="GUnload()">
+
+
+
     <div id="map_canvas" style="width: 500px; height: 300px"></div>
 <?php
 						echo "<h3 id = 'comments-title'> Comments </h3>";
