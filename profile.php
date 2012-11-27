@@ -65,18 +65,7 @@
 						echo "</span>\n";
 ?>
 
-<script type="text/javascript">
-      function initialize() {
-      	
-        var mapOptions = {
-          center: new google.maps.LatLng(<?php echo $latitude ?>, <?php echo $longitude ?>),
-          zoom: 8,
-          mapTypeId: google.maps.MapTypeId.ROADMAP
-        };
-        var map = new google.maps.Map(document.getElementById("map_canvas"),
-            mapOptions);
-      }
-    </script>
+
 
 <body onload="initialize()" onunload="GUnload()">
 
@@ -180,9 +169,9 @@
 						navigator.geolocation.getCurrentPosition(function (position) {
 							$(".latitude").val(position.coords.latitude);
 							$(".longitude").val(position.coords.longitude);
-							
+
 							#add the variables for the user's current location here
-							
+														
 							getDistance({
 								id: <?php echo $_GET["id"] ?>,
 								latitude: position.coords.latitude,
@@ -205,7 +194,31 @@
 						});
 					}
 				});
-			</script>
+				
+				</script>
+			<script type="text/javascript">
+
+		
+
+      function initialize() {
+      	
+        var mapOptions = {
+          center: new google.maps.LatLng(<?php echo $latitude ?>, <?php echo $longitude ?>),
+          zoom: 8,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        var map = new google.maps.Map(document.getElementById("map_canvas"),
+            mapOptions);
+           var docCoords = new google.maps.LatLng(<?php echo $latitude?>,<?php echo $longitude?>);     	
+           var docMarker = new google.maps.Marker({
+          	position: docCoords, map: map, title: "Your doctor's location"});   
+          	
+          	 var userCoords = new google.maps.LatLng($(".latitude").val(position.coords.latitude),$(".longitude").val(position.coords.longitude));   
+   
+          	
+      }
+    </script>	
+			
 
 		</div>
 		<br>
