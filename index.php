@@ -30,8 +30,8 @@
 		<div data-role = "content">
 			<?php include("include/fav-link.html"); ?>
 
-			<h1> Doc </h1>
-
+			
+			<img src="Doc.jpeg" alt="Doc" class = "center">
 			<form action = "search.php" method = "get" data-transition = "slide" id = "search-form">
 				<input type = "search" name = "symptoms" placeholder = "Symptoms, e.g. cough" class = "symptomSearch" onclick = "$('.insuranceSearch').show(500)" required>
 				<ul class = "symptomSuggestions" data-role="listview" data-inset="true"></ul>
