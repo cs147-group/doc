@@ -89,8 +89,7 @@
 			<div data-role="popup" id="popupMap" data-overlay-theme="a" data-corners="false">
 				<img id = "mapImage" alt = "Map" src = "https://maps.googleapis.com/maps/api/staticmap?center=<?php echo $row['latitude'].'+'.$row['longitude'] ?>&zoom=13&size=400x400&sensor=false">
 				<a data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
-				<a data-role = "button" data-theme = "b" href = "http://maps.apple.com/maps?q=<?php echo $row['latitude'].','.$row['longitude'] ?>"> Open in Maps.app </a>
-			</div>
+							</div>
 
 			<div data-role = "popup" data-overlay-theme = "a" id = "ratePopup">
 
@@ -169,7 +168,8 @@
 						navigator.geolocation.getCurrentPosition(function (position) {
 							$(".latitude").val(position.coords.latitude);
 							$(".longitude").val(position.coords.longitude);
-
+							var userLat = position.coords.latitude;
+							var userLong = position.coords.latitude;
 							#add the variables for the user's current location here
 														
 							getDistance({
@@ -211,9 +211,12 @@
             mapOptions);
            var docCoords = new google.maps.LatLng(<?php echo $latitude?>,<?php echo $longitude?>);     	
            var docMarker = new google.maps.Marker({
-          	position: docCoords, map: map, title: "Your doctor's location"});   
-          	
-          	 var userCoords = new google.maps.LatLng($(".latitude").val(position.coords.latitude),$(".longitude").val(position.coords.longitude));   
+          	position: docCoords, map: map, title: "Your doctor's location"});  
+       
+       		var userCoords = new google.maps.LatLng(userLat,userLong);
+			
+          	var userMarker = new google.maps.Marker({
+          	position: userCoords, map: map, title: "Your location"});   
    
           	
       }
