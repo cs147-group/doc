@@ -121,32 +121,21 @@ p {
 	min-height: 100px;
 }
 
+.img-wrapper {
+	position: absolute;
+}
+
 .doctor-details img {
 	width: 60px;
 	max-height: 100px;
 }
 
-.img-wrapper {
-	position: absolute;
-}
-
 @-webkit-keyframes image {
-	0% {
-		-webkit-transform: translateX(0px);
-		width: 60px;
-	}
-	100% {
-		-webkit-transform: translateX(280px);
-		width: 20px;
-	}
-}
-
-@-webkit-keyframes imageWrapper {
-	0% { -webkit-transform: translateY(0px); }
+	0% { -webkit-transform: translateY(0px); width: 60px; }
 	30% { -webkit-transform: translateY(20px); }
 	40% { -webkit-transform: translateY(10px); }
 	50% { -webkit-transform: translateY(0px); }
-	100% { -webkit-transform: translateY(-30px); }
+	100% { -webkit-transform: translateY(-30px); width: 20px; }
 }
 
 .profile-img-fav {
@@ -154,7 +143,8 @@ p {
 }
 
 .profile-img-wrapper-fav {
-	-webkit-animation: imageWrapper 1s ease-out;
+	-webkit-transition: all 1s ease;
+	left: 100% !important;
 }
 
 @-webkit-keyframes favHighlight {
