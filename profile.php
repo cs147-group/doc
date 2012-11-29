@@ -122,9 +122,28 @@
 					loadMoreComments(); // Calling the function also sets up the binding to loadMoreIfAtBottom
 
 					$(".addToFavButton").click(function() {
+<<<<<<< HEAD
 						$.get("addToFav.php?id=<?php echo $id ?>", function(data) {
 							$('.fav-link').effect("highlight", { color: "red" }, 3000);
 						});
+=======
+						if ($(".profile-img-wrapper-fav").length == 0) { // If not already animating
+							var left = $(".img-wrapper").position().left / $(".img-wrapper").parent().width() * 100;
+							$(".img-wrapper").css("left", left + "%"); // Explicitly set left as a percentage to allow the browser to animate to left: 100%
+							$.get("addToFav.php?id=<?php echo $id ?>", function(data) {
+								$('.fav-link').addClass("fav-highlight");
+								$(".doctor-details img").addClass("profile-img-fav");
+								$(".img-wrapper").addClass("profile-img-wrapper-fav");
+								window.setTimeout(function() {
+									$(".doctor-details img").removeClass("profile-img-fav");
+									$(".img-wrapper").removeClass("profile-img-wrapper-fav");
+								}, 1000);
+								window.setTimeout(function() {
+									$('.fav-link').removeClass("fav-highlight");
+								}, 2000);
+							});
+						}
+>>>>>>> c10b893c2fb60b623766cbd5bd98ee3d28c43b00
 					});
 
 					// Load more results if we are at the bottom
