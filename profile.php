@@ -1,15 +1,6 @@
 <html>
 
-#Google Maps API code
-
-
-    
-
-
-
 <?php include("include/head.html") ?>
-
-
 
 <body>
 
@@ -44,52 +35,29 @@
 						include("include/phone.php");
 						echo "<h3> ".$row["name"]." </h3>";
 						echo "<div class = 'doctor-details'>";
-						echo "<img src = '".$row["image"]."'>";
+						echo "<div class = 'img-wrapper'><img src = '".$row["image"]."'></div>";
 						echo "<p> Specialty: ".$row["specialties"]."<br>";
 						echo "Phone: <a href='tel:+1".$row["phone"]."'>".$phone."</a><br>";
 						echo "Hours: ".$row["hours"]."<br>";
 						echo "Distance: <span class = 'distance'></span><br>";
 						echo "</p></div>\n";
 						echo "<span class = 'rating rating-profile'>".$row["rating"]."</span>";
-
-
-
-
-    
 						echo "<span class = 'profileButtons'>";
-						#echo "<a href= '#popupMap' data-rel='popup' data-role='button' data-theme = 'b' data-transition = 'pop' data-inline='true'>Map</a>";
-						
-						
-						echo "<a href = '#ratePopup' data-rel = 'popup' data-role = 'button' data-theme = 'b' data-transition = 'pop' data-inline = 'true'> Rate </a>";
-						echo "<a data-role = 'button' data-theme = 'b' data-transition = 'slide' data-inline = 'true' class = 'addToFavButton'> Fav </a>";
+							echo "<a href = '#ratePopup' data-rel = 'popup' data-role = 'button' data-theme = 'b' data-transition = 'pop' data-inline = 'true'> Rate </a>";
+							echo "<a data-role = 'button' data-theme = 'b' data-transition = 'slide' data-inline = 'true' class = 'addToFavButton'> Fav </a>";
 						echo "</span>\n";
-?>
 
+						echo "<div id = 'map_canvas".$id."' class = 'map_canvas'></div>";
+						echo "<a data-role = 'button' data-theme = 'b' href = 'http://maps.apple.com/maps?q=".$row['latitude'].','.$row['longitude']."'> Open in Maps.app </a>";
 
-
-<body onload="initialize()" onunload="GUnload()">
-
-
-
-    <div id="map_canvas" style="width: 500px; height: 300px"></div>
-<?php
 						echo "<h3 id = 'comments-title'> Comments </h3>";
 						echo "<div class = 'comments-container'></div>";
 					} else {
 						echo "Not found.";
 					}
 				?>
-			
-    
-      </body>
-				
-				
+
 			</div>
-			
-			<div data-role="popup" id="popupMap" data-overlay-theme="a" data-corners="false">
-				<img id = "mapImage" alt = "Map" src = "https://maps.googleapis.com/maps/api/staticmap?center=<?php echo $row['latitude'].'+'.$row['longitude'] ?>&zoom=13&size=400x400&sensor=false">
-				<a data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
-							</div>
 
 			<div data-role = "popup" data-overlay-theme = "a" id = "ratePopup">
 
@@ -122,28 +90,24 @@
 					loadMoreComments(); // Calling the function also sets up the binding to loadMoreIfAtBottom
 
 					$(".addToFavButton").click(function() {
-<<<<<<< HEAD
 						$.get("addToFav.php?id=<?php echo $id ?>", function(data) {
-							$('.fav-link').effect("highlight", { color: "red" }, 3000);
+							if ($(".profile-img-wrapper-fav").length == 0) { // If not already animating
+								var left = $(".img-wrapper").position().left / $(".img-wrapper").parent().width() * 100;
+								$(".img-wrapper").css("left", left + "%"); // Explicitly set left as a percentage to allow the browser to animate to left: 100%
+								$.get("addToFav.php?id=<?php echo $id ?>", function(data) {
+									$('.fav-link').addClass("fav-highlight");
+									$(".doctor-details img").addClass("profile-img-fav");
+									$(".img-wrapper").addClass("profile-img-wrapper-fav");
+									window.setTimeout(function() {
+										$(".doctor-details img").removeClass("profile-img-fav");
+										$(".img-wrapper").removeClass("profile-img-wrapper-fav");
+									}, 1000);
+									window.setTimeout(function() {
+										$('.fav-link').removeClass("fav-highlight");
+									}, 2000);
+								});
+							}
 						});
-=======
-						if ($(".profile-img-wrapper-fav").length == 0) { // If not already animating
-							var left = $(".img-wrapper").position().left / $(".img-wrapper").parent().width() * 100;
-							$(".img-wrapper").css("left", left + "%"); // Explicitly set left as a percentage to allow the browser to animate to left: 100%
-							$.get("addToFav.php?id=<?php echo $id ?>", function(data) {
-								$('.fav-link').addClass("fav-highlight");
-								$(".doctor-details img").addClass("profile-img-fav");
-								$(".img-wrapper").addClass("profile-img-wrapper-fav");
-								window.setTimeout(function() {
-									$(".doctor-details img").removeClass("profile-img-fav");
-									$(".img-wrapper").removeClass("profile-img-wrapper-fav");
-								}, 1000);
-								window.setTimeout(function() {
-									$('.fav-link').removeClass("fav-highlight");
-								}, 2000);
-							});
-						}
->>>>>>> c10b893c2fb60b623766cbd5bd98ee3d28c43b00
 					});
 
 					// Load more results if we are at the bottom
@@ -176,10 +140,29 @@
 						});
 						return false;
 					});
+				});
+
+
+				$("#profile<?php echo $id ?>").live("pageshow", function() {
+					var mapOptions = {
+						center: new google.maps.LatLng(<?php echo $latitude ?>, <?php echo $longitude ?>),
+						zoom: 8,
+						mapTypeId: google.maps.MapTypeId.ROADMAP
+					};
+					window.googleMap<?php echo $id ?> = new google.maps.Map($("#map_canvas<?php echo $id ?>")[0], mapOptions);
+					var docCoords = new google.maps.LatLng(<?php echo $latitude?>,<?php echo $longitude?>);
+					var docMarker = new google.maps.Marker({
+						position: docCoords,
+						map: window.googleMap<?php echo $id ?>,
+						title: "Your doctor's location"
+					});
+
+
 
 					function getDistance(data) {
 						$.post("getdistance.php", data, function(data) {
-							$(".distance").html(data);
+							$(".distance").html(data + " mi");
+							window.googleMap<?php echo $id ?>.setZoom(Math.round(8 + 4 / data));
 						});
 					}
 
@@ -187,10 +170,10 @@
 						navigator.geolocation.getCurrentPosition(function (position) {
 							$(".latitude").val(position.coords.latitude);
 							$(".longitude").val(position.coords.longitude);
-							var userLat = position.coords.latitude;
-							var userLong = position.coords.latitude;
-							#add the variables for the user's current location here
-														
+
+							var currentPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+							window.googleMap<?php echo $id ?>.setCenter(currentPosition);
+
 							getDistance({
 								id: <?php echo $_GET["id"] ?>,
 								latitude: position.coords.latitude,
@@ -213,34 +196,8 @@
 						});
 					}
 				});
-				
+
 				</script>
-			<script type="text/javascript">
-
-		
-
-      function initialize() {
-      	
-        var mapOptions = {
-          center: new google.maps.LatLng(<?php echo $latitude ?>, <?php echo $longitude ?>),
-          zoom: 8,
-          mapTypeId: google.maps.MapTypeId.ROADMAP
-        };
-        var map = new google.maps.Map(document.getElementById("map_canvas"),
-            mapOptions);
-           var docCoords = new google.maps.LatLng(<?php echo $latitude?>,<?php echo $longitude?>);     	
-           var docMarker = new google.maps.Marker({
-          	position: docCoords, map: map, title: "Your doctor's location"});  
-       
-       		var userCoords = new google.maps.LatLng(userLat,userLong);
-			
-          	var userMarker = new google.maps.Marker({
-          	position: userCoords, map: map, title: "Your location"});   
-   
-          	
-      }
-    </script>	
-			
 
 		</div>
 		<br>

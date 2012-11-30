@@ -17,15 +17,20 @@ p {
 	font-family: 'Raleway', sans-serif;
 	font-size: 20px;
 }
-img.center {   display: block;   margin-left: auto;   margin-right: auto; }
+
+img.center {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
 
 .fav-link {
-	top: 70px;
-	right: -35px;
+	top: 80px;
+	right: -40px;
 	position: fixed;
 	background: rgba(0, 0, 0, 0.5);
 	color: white;
-	padding: 15px;
+	padding: 13px;
 	-webkit-border-radius: 10px;
     -webkit-transform: rotate(-90deg);
     z-index: 100;
@@ -62,6 +67,11 @@ img.center {   display: block;   margin-left: auto;   margin-right: auto; }
 
 .profile-link {
 	padding-left: 70px !important;
+}
+
+.map_canvas {
+	width: 290px;
+	height: 200px;
 }
 
 .search-info {
@@ -166,7 +176,7 @@ img.center {   display: block;   margin-left: auto;   margin-right: auto; }
 
 .profileButtons {
 	position: relative;
-	left: 10%;
+	left: 20%;
 }
 
 #edit-buttons {

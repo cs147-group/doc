@@ -4,6 +4,6 @@
 	$result = mysql_query($query);
 	if ($result) {
 		$row = mysql_fetch_assoc($result);
-		echo round($row["distance"], 1)." mi";
+		echo round($row["distance"], 1);
 	}
 ?>
