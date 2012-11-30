@@ -70,7 +70,7 @@ img.center {
 }
 
 .map_canvas {
-	width: 290px;
+	width: 100%;
 	height: 200px;
 }
 
