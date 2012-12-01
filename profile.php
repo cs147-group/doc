@@ -44,7 +44,7 @@
 						echo "<span class = 'rating rating-profile'>".$row["rating"]."</span>";
 						echo "<span class = 'profileButtons'>";
 							echo "<a href = '#ratePopup' data-rel = 'popup' data-role = 'button' data-theme = 'b' data-transition = 'pop' data-inline = 'true'> Rate </a>";
-							echo "<a data-role = 'button' data-theme = 'b' data-transition = 'slide' data-inline = 'true' class = 'addToFavButton'> Fav </a>";
+							echo "<a data-role = 'button' data-theme = 'b' data-transition = 'slide' data-inline = 'true' class = 'addToFavButton'> Save </a>";
 						echo "</span>\n";
 
 						echo "<div id = 'map_canvas".$id."' class = 'map_canvas'></div>";
